@@ -1,0 +1,13 @@
+/DynamicPostTags.csv
+/bigartm.NIKA.User.log.WARNING.20191011-035442.12348
+/bigartm.NIKA.User.log.INFO.20191011-035442.12348
+/bigartm.NIKA.User.log.ERROR.20191011-035442.12348
+/kos/
+/.ipynb_checkpoints/
+/venv/Lib/site-packages/*
+!/venv/Lib/site-packages/bigartm-0.9.0-py3.7.egg
+/.idea
+/venv/Scripts/
+/venv/share/
+/venv/pyvenv.cfg
+/venv/etc/
