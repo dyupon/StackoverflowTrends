@@ -16,18 +16,16 @@ import java.util.stream.IntStream;
 
 @SuppressWarnings("SameParameterValue")
 class Parser {
-    private static String path;
-    private static FileInputStream inputStream = null;
-    private static Scanner sc = null;
     private static final Map<String, String> postType = new HashMap<>(
             Map.of("posts", "PostTypeId=\"1\"", "comments", "PostTypeId=\"2\""));
     private static CSVPrinter csvPrinter = null;
+    private static Scanner sc = null;
+    private static FileInputStream inputStream = null;
     private static FileWriter fileWriter = null;
     private static String commonRegexp = "=\"(.*?)\"";
     private static String tagRegexp = "&lt;(.*?)&gt;";
 
     Parser(String path) {
-        Parser.path = path;
         try {
             inputStream = new FileInputStream(path);
             sc = new Scanner(inputStream);
@@ -40,6 +38,7 @@ class Parser {
         String targetType = postType.get(type);
         int linesTotal = 0;
         int linesTarget = 0;
+        int linesInvalid = 0;
         createCSVFile(fileName, colsToRetrieve);
         Instant lineCountStart = Instant.now();
         while (sc.hasNextLine()) {
@@ -66,12 +65,18 @@ class Parser {
                     }
                 });
                 try {
+                    StringBuilder sb = new StringBuilder();
                     for (String tag : tags) {
-                        row.add(tag);
+                        sb.append(tag);
+                        sb.append(" ");
+                    }
+                    int len = sb.length();
+                    if (len > 0) {
+                        sb.deleteCharAt(sb.length() - 1);
+                        row.add(sb.toString());
                         csvPrinter.printRecord(row);
                         csvPrinter.flush();
-                        row.remove(row.size() - 1);
-                    }
+                    } else ++linesInvalid;
                 } catch (IOException e) {
                     throw new RuntimeException("Cannot write line " + row.toString() + " created from " + dbEntry + " to CSV");
                 }
@@ -79,8 +84,9 @@ class Parser {
             if (linesTotal % 100000 == 0)
                 System.out.println("Elapsed: " + linesTotal + " lines in " + Duration.between(lineCountStart, Instant.now()).toSeconds() + " seconds");
         }
-        System.out.println("Total lines elapsed: " + linesTotal + ", target lines elapsed: " + linesTarget + " in "
-                + Duration.between(lineCountStart, Instant.now()).toMinutes() + " minutes");
+        System.out.println("Total lines elapsed: " + linesTotal + ", target lines elapsed: " + linesTarget +
+                ", lines without tags elapsed: " + linesInvalid + " in "
+                + Duration.between(lineCountStart, Instant.now()).toMinutes() + " minutes.");
     }
 
     private void createCSVFile(String fileName, List<String> headers) {
@@ -89,24 +95,8 @@ class Parser {
             String[] headersArr = headers.toArray(new String[0]);
             csvPrinter = new CSVPrinter(fileWriter,
                     CSVFormat.DEFAULT.withHeader(headersArr));
-            csvPrinter.flush();
         } catch (Exception e) {
             throw new RuntimeException("Error while creating output file: " + e.getMessage());
-        }
-    }
-
-    void flush() {
-        try {
-            if (fileWriter != null) {
-                fileWriter.flush();
-                fileWriter.close();
-            }
-            if (inputStream != null) inputStream.close();
-            if (csvPrinter != null) csvPrinter.close();
-        } catch (IOException ex) {
-            throw new RuntimeException("Error while closing output streams: " + ex.getMessage());
-        } finally {
-            if (sc != null) sc.close();
         }
     }
 
@@ -117,6 +107,18 @@ class Parser {
                 String dbEntry = sc.nextLine();
                 if (dbEntry.contains(targetType)) System.out.println(dbEntry);
             }
+        }
+    }
+
+    void flush() {
+        try {
+            if (fileWriter != null) fileWriter.close();
+            if (inputStream != null) inputStream.close();
+            if (csvPrinter != null) csvPrinter.close();
+        } catch (IOException ex) {
+            throw new RuntimeException("Error while closing output streams: " + ex.getMessage());
+        } finally {
+            if (sc != null) sc.close();
         }
     }
 }

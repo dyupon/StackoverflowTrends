@@ -11,3 +11,5 @@
 /venv/share/
 /venv/pyvenv.cfg
 /venv/etc/
+/DynamicPostsTagsGathered.csv
+/vw.tags.txt
