@@ -3,35 +3,30 @@ package com.csc;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 @SuppressWarnings("SameParameterValue")
-class Parser {
-    private static final Map<String, String> postType = new HashMap<>(
-            Map.of("posts", "PostTypeId=\"1\"", "comments", "PostTypeId=\"2\""));
+class Parser extends PostsReader {
     private static CSVPrinter csvPrinter = null;
-    private static Scanner sc = null;
-    private static FileInputStream inputStream = null;
     private static FileWriter fileWriter = null;
-    private static String commonRegexp = "=\"(.*?)\"";
-    private static String tagRegexp = "&lt;(.*?)&gt;";
+    private int tagFrequencyThreshold;
 
     Parser(String path) {
-        try {
-            inputStream = new FileInputStream(path);
-            sc = new Scanner(inputStream);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found at: " + path);
-        }
+        super(path);
+    }
+
+    public void setTagFrequencyThreshold(int tagFrequencyThreshold) {
+        this.tagFrequencyThreshold = tagFrequencyThreshold;
     }
 
     void parseToCSV(String type, List<String> colsToRetrieve, String fileName) {
@@ -40,6 +35,7 @@ class Parser {
         int linesTarget = 0;
         int linesInvalid = 0;
         createCSVFile(fileName, colsToRetrieve);
+        Set<String> tagsToRetrieve = cutOffTags();
         Instant lineCountStart = Instant.now();
         while (sc.hasNextLine()) {
             ++linesTotal;
@@ -56,7 +52,8 @@ class Parser {
                         Pattern patternTag = Pattern.compile(tagRegexp);
                         Matcher matcherTag = patternTag.matcher(matcher.group(1));
                         while (matcherTag.find()) {
-                            tags.add(matcherTag.group(1));
+                            String tag = matcherTag.group(1);
+                            if (tagsToRetrieve.contains(tag)) tags.add(tag);
                         }
                     } else if (matcher.find()) {
                         row.add(matcher.group(1));
@@ -87,6 +84,15 @@ class Parser {
         System.out.println("Total lines elapsed: " + linesTotal + ", target lines elapsed: " + linesTarget +
                 ", lines without tags elapsed: " + linesInvalid + " in "
                 + Duration.between(lineCountStart, Instant.now()).toMinutes() + " minutes.");
+        closeIOStreams();
+    }
+
+    private Set<String> cutOffTags() {
+        Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
+        System.out.println("Amount of tags contained in database: " + tagsFrequencies.size());
+        tagsFrequencies.values().removeIf(value -> value <= 100);
+        System.out.println("Amount of tags after cutting off the threshold: " + tagsFrequencies.size());
+        return tagsFrequencies.keySet();
     }
 
     private void createCSVFile(String fileName, List<String> headers) {
@@ -110,15 +116,14 @@ class Parser {
         }
     }
 
-    void flush() {
+    @Override
+    protected void closeIOStreams() {
         try {
             if (fileWriter != null) fileWriter.close();
-            if (inputStream != null) inputStream.close();
             if (csvPrinter != null) csvPrinter.close();
+            super.closeIOStreams();
         } catch (IOException ex) {
             throw new RuntimeException("Error while closing output streams: " + ex.getMessage());
-        } finally {
-            if (sc != null) sc.close();
         }
     }
 }

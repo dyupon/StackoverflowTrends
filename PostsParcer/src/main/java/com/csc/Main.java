@@ -6,8 +6,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        //parseRawData();
-        parseToVW();
+        parseRawData();
+        //parseToVW();
+        //serializeTags();
+    }
+
+    private static void serializeTags() {
+        TagsFrequenciesSerializer serializer = new TagsFrequenciesSerializer("Posts.xml");
+        serializer.serialize();
     }
 
     private static void parseToVW() {
@@ -16,12 +22,12 @@ public class Main {
            add("Tags");
         }};
         vwConverter.convertToVW(colsToRetrieve, "vw.tags.txt", "post");
-        vwConverter.flush();
     }
 
     private static void parseRawData() {
         Parser parser = new Parser("Posts.xml");
         String entryType = "posts";
+        parser.setTagFrequencyThreshold(100);
         List<String> cols = new ArrayList<>() {{
             add("Id");
             add("CreationDate");
@@ -31,7 +37,6 @@ public class Main {
         }};
         parser.parseToCSV(entryType, cols, "DynamicPostTagsUngathered.csv");
         parser.printLine(entryType, 10);
-        parser.flush();
     }
 }
 

@@ -46,6 +46,7 @@ class VWConverter {
         }
         System.out.println("Total lines elapsed: " + lineCount + " in "
                 + Duration.between(lineCountStart, Instant.now()).toMinutes() + " minutes.");
+        closeIOStreams();
     }
 
     private void createTxtFile(String fileName) {
@@ -57,7 +58,7 @@ class VWConverter {
         }
     }
 
-    void flush() {
+    private void closeIOStreams() {
         try {
             if (csvParser != null) csvParser.close();
             if (writer != null) writer.close();
