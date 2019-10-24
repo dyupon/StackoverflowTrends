@@ -36,7 +36,6 @@ public class Main {
             add("Tags");
         }};
         parser.parseToCSV(entryType, cols, "DynamicPostTagsUngathered.csv");
-        parser.printLine(entryType, 10);
     }
 }
 

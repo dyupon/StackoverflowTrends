@@ -24,9 +24,6 @@ public class PostsReader {
         }
     }
 
-    public PostsReader() {
-    }
-
     void closeIOStreams() throws IOException {
         if (inputStream != null) inputStream.close();
         if (sc != null) sc.close();
