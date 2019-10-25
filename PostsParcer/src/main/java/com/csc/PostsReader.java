@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class PostsReader {
-    protected static FileInputStream inputStream = null;
-    protected static Scanner sc = null;
-    protected static final Map<String, String> postType = new HashMap<>(
+class PostsReader {
+    private static FileInputStream inputStream = null;
+    static Scanner sc = null;
+    static final Map<String, String> postType = new HashMap<>(
             Map.of("posts", "PostTypeId=\"1\"", "comments", "PostTypeId=\"2\""));
-    protected static String commonRegexp = "=\"(.*?)\"";
-    protected static String tagRegexp = "&lt;(.*?)&gt;";
+    static String commonRegexp = "=\"(.*?)\"";
+    static String tagRegexp = "&lt;(.*?)&gt;";
 
     PostsReader(String path) {
         try {

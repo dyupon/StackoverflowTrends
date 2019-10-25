@@ -1,14 +1,42 @@
 package com.csc;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        parseRawData();
+        //parseRawData();
         //parseToVW();
         //serializeTags();
+        createTagsFrequenciesCSV();
+    }
+
+    private static void createTagsFrequenciesCSV() {
+        List<String> headers = new ArrayList<>() {{
+            add("tag");
+            add("count");
+        }};
+        try {
+            FileWriter fileWriter = new FileWriter("tags.csv");
+            String[] headersArr = headers.toArray(new String[0]);
+            CSVPrinter csvPrinter = new CSVPrinter(fileWriter,
+                    CSVFormat.DEFAULT.withHeader(headersArr));
+            Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
+            for (Map.Entry<String, Integer> entry : tagsFrequencies.entrySet()) {
+                csvPrinter.print(entry.getKey());
+                csvPrinter.print(entry.getValue());
+                csvPrinter.println();
+                csvPrinter.flush();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error while creating output file: " + e.getMessage());
+        }
     }
 
     private static void serializeTags() {
@@ -19,7 +47,7 @@ public class Main {
     private static void parseToVW() {
         VWConverter vwConverter = new VWConverter("DynamicPostTagsUngathered.csv");
         List<String> colsToRetrieve = new ArrayList<>() {{
-           add("Tags");
+            add("Tags");
         }};
         vwConverter.convertToVW(colsToRetrieve, "vw.tags.txt", "post");
     }
