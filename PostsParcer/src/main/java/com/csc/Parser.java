@@ -90,7 +90,7 @@ class Parser extends PostsReader {
     private Set<String> cutOffTags() {
         Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
         System.out.println("Amount of tags contained in database: " + tagsFrequencies.size());
-        tagsFrequencies.values().removeIf(value -> value <= 100);
+        tagsFrequencies.values().removeIf(value -> value <= tagFrequencyThreshold);
         System.out.println("Amount of tags after cutting off the threshold: " + tagsFrequencies.size());
         return tagsFrequencies.keySet();
     }

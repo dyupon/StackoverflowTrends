@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 public class TagsFrequenciesSerializer extends PostsReader {
     private static FileOutputStream fileOutputStream = null;
     private static ObjectOutputStream objectOutputStream = null;
-    private static FileInputStream fileInputStream = null;
-    private static ObjectInputStream objectInputStream = null;
     private static String fileName = "tagsFrequencies.ser";
 
     TagsFrequenciesSerializer(String path) {
@@ -55,6 +53,8 @@ public class TagsFrequenciesSerializer extends PostsReader {
     }
 
     static HashMap<String, Integer> deserialize() {
+        FileInputStream fileInputStream;
+        ObjectInputStream objectInputStream;
         try {
             fileInputStream = new FileInputStream(fileName);
             objectInputStream = new ObjectInputStream(fileInputStream);
@@ -64,8 +64,8 @@ public class TagsFrequenciesSerializer extends PostsReader {
         HashMap<String, Integer> tagsFrequencies;
         try {
             tagsFrequencies = (HashMap<String, Integer>) objectInputStream.readObject();
-            if (fileInputStream != null) fileInputStream.close();
-            if (objectInputStream != null) objectInputStream.close();
+            fileInputStream.close();
+            objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException("Cannot deserialize object from file" + fileName + " " + e.getMessage());
         }
