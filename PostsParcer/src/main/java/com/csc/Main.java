@@ -12,9 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         //parseRawData();
-        //parseToVW();
+        parseToVW();
         //serializeTags();
-        createTagsFrequenciesCSV();
+        //createTagsFrequenciesCSV();
     }
 
     private static void createTagsFrequenciesCSV() {
@@ -49,7 +49,7 @@ public class Main {
         List<String> colsToRetrieve = new ArrayList<>() {{
             add("Tags");
         }};
-        vwConverter.convertToVW(colsToRetrieve, "vw.tags.txt", "post");
+        vwConverter.convertToVW(colsToRetrieve, "vw.tags.100.txt", "post");
     }
 
     private static void parseRawData() {
