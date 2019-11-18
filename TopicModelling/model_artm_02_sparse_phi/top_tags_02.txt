@@ -1,0 +1,632 @@
+topic_4
+button: 0.8273745179176331; 
+ bluetooth: 0.17262548208236694; 
+ topic_6
+c: 1.0; 
+ topic_9
+asp.net: 1.0; 
+ topic_10
+vector: 1.0; 
+ topic_15
+layout: 1.0; 
+ topic_16
+hadoop: 1.0; 
+ topic_21
+terminal: 0.6673542857170105; 
+ concurrency: 0.3326457142829895; 
+ topic_25
+fonts: 1.0; 
+ topic_28
+laravel: 1.0; 
+ topic_29
+qt: 1.0; 
+ topic_42
+numpy: 1.0; 
+ topic_50
+email: 1.0; 
+ topic_52
+haskell: 0.7984671592712402; 
+ functional-programming: 0.20153288543224335; 
+ topic_56
+ggplot2: 1.0; 
+ topic_57
+if-statement: 1.0; 
+ topic_61
+facebook: 1.0; 
+ topic_69
+random: 1.0; 
+ topic_71
+symfony: 1.0; 
+ topic_73
+class: 0.5984340906143188; 
+ oop: 0.3717987537384033; 
+ syntax: 0.02976718544960022; 
+ topic_75
+stream: 0.8392544984817505; 
+ io: 0.16074548661708832; 
+ topic_80
+mysqli: 0.7826035022735596; 
+ pdo: 0.2173965722322464; 
+ topic_81
+sharepoint: 1.0; 
+ topic_84
+paypal: 1.0; 
+ topic_85
+excel: 1.0; 
+ topic_92
+maven: 0.9762147665023804; 
+ jar: 0.023785244673490524; 
+ topic_97
+macos: 1.0; 
+ topic_98
+types: 0.6968324780464172; 
+ reflection: 0.30316752195358276; 
+ topic_99
+url-rewriting: 1.0; 
+ topic_100
+generics: 0.6074933409690857; 
+ arraylist: 0.3925066292285919; 
+ topic_102
+unity3d: 1.0; 
+ topic_103
+rest: 0.4569719433784485; 
+ sorting: 0.2614665925502777; 
+ testing: 0.18524861335754395; 
+ exception: 0.09631283581256866; 
+ topic_105
+apache: 0.969768762588501; 
+ mod-rewrite: 0.030231282114982605; 
+ topic_107
+enums: 1.0; 
+ topic_110
+debugging: 0.48846063017845154; 
+ jsp: 0.38129809498786926; 
+ encoding: 0.13024123013019562; 
+ topic_112
+linux: 0.8821702003479004; 
+ unix: 0.11782979965209961; 
+ topic_115
+vbscript: 1.0; 
+ topic_119
+ssis: 1.0; 
+ topic_120
+loops: 0.8941688537597656; 
+ while-loop: 0.10583114624023438; 
+ topic_124
+batch-file: 0.5512179136276245; 
+ logging: 0.4487821161746979; 
+ topic_125
+constructor: 1.0; 
+ topic_126
+android-intent: 1.0; 
+ topic_131
+plugins: 1.0; 
+ topic_134
+dataframe: 1.0; 
+ topic_137
+service: 1.0; 
+ topic_141
+regex: 1.0; 
+ topic_143
+svg: 1.0; 
+ topic_147
+text: 1.0; 
+ topic_148
+struct: 1.0; 
+ topic_149
+active-directory: 1.0; 
+ topic_161
+r: 0.8786972165107727; 
+ function: 0.12130281329154968; 
+ topic_167
+outlook: 1.0; 
+ topic_176
+asp.net-mvc: 1.0; 
+ topic_178
+unicode: 1.0; 
+ topic_180
+ssl: 0.5598704814910889; 
+ redirect: 0.22816969454288483; 
+ https: 0.2119598239660263; 
+ topic_183
+tomcat: 0.9040079712867737; 
+ datagridview: 0.09599199146032333; 
+ topic_186
+animation: 1.0; 
+ topic_187
+permissions: 1.0; 
+ topic_188
+.htaccess: 1.0; 
+ topic_189
+database-design: 1.0; 
+ topic_190
+plot: 1.0; 
+ topic_193
+python: 1.0; 
+ topic_197
+sql-server: 0.8514339923858643; 
+ tsql: 0.14856600761413574; 
+ topic_203
+sqlalchemy: 1.0; 
+ topic_205
+sql: 0.9883191585540771; 
+ count: 0.007231404073536396; 
+ triggers: 0.0044494555331766605; 
+ topic_206
+visual-studio: 0.8492613434791565; 
+ inheritance: 0.1507386714220047; 
+ topic_212
+search: 0.8184319138526917; 
+ grep: 0.18156807124614716; 
+ topic_232
+.net: 0.9437609910964966; 
+ datatable: 0.05623899772763252; 
+ topic_234
+filter: 1.0; 
+ topic_236
+listview: 1.0; 
+ topic_237
+lua: 1.0; 
+ topic_241
+asynchronous: 1.0; 
+ topic_246
+web-scraping: 0.8747169375419617; 
+ html-table: 0.12528303265571594; 
+ topic_247
+indexing: 1.0; 
+ topic_252
+sqlite: 1.0; 
+ topic_253
+servlets: 1.0; 
+ topic_254
+phpmyadmin: 1.0; 
+ topic_259
+pandas: 1.0; 
+ topic_264
+ffmpeg: 1.0; 
+ topic_268
+import: 1.0; 
+ topic_274
+merge: 1.0; 
+ topic_283
+variables: 1.0; 
+ topic_291
+binary: 1.0; 
+ topic_298
+bash: 0.6629301905632019; 
+ shell: 0.3370698392391205; 
+ topic_305
+stored-procedures: 1.0; 
+ topic_308
+css: 1.0; 
+ topic_309
+assembly: 0.8644216060638428; 
+ x86: 0.13557836413383484; 
+ topic_311
+recursion: 1.0; 
+ topic_322
+notifications: 1.0; 
+ topic_323
+ios: 0.9689814448356628; 
+ iphone: 0.031018558889627457; 
+ topic_325
+dictionary: 0.6115106344223022; 
+ linq: 0.38848939538002014; 
+ topic_331
+dependency-injection: 1.0; 
+ topic_332
+c++11: 0.570531964302063; 
+ templates: 0.42946797609329224; 
+ topic_335
+audio: 1.0; 
+ topic_336
+intellij-idea: 1.0; 
+ topic_339
+google-app-engine: 1.0; 
+ topic_340
+string: 0.9500547051429749; 
+ collections: 0.04994533210992813; 
+ topic_345
+google-chrome: 0.8930317759513855; 
+ browser: 0.10696824640035629; 
+ topic_353
+jquery: 1.0; 
+ topic_360
+winforms: 0.9098376631736755; 
+ dll: 0.09016232192516327; 
+ topic_362
+dns: 1.0; 
+ topic_369
+machine-learning: 1.0; 
+ topic_376
+orm: 1.0; 
+ topic_378
+tree: 1.0; 
+ topic_382
+django: 0.8539973497390747; 
+ django-models: 0.09722064435482025; 
+ django-forms: 0.030820628628134727; 
+ django-templates: 0.017961373552680016; 
+ topic_384
+linked-list: 1.0; 
+ topic_388
+web-services: 0.47980329394340515; 
+ serialization: 0.3595801293849945; 
+ wcf: 0.16061654686927795; 
+ topic_391
+amazon-web-services: 0.7830889821052551; 
+ amazon-s3: 0.21691101789474487; 
+ topic_397
+join: 0.5962551236152649; 
+ group-by: 0.4037448763847351; 
+ topic_407
+twitter: 1.0; 
+ topic_416
+google-chrome-extension: 1.0; 
+ topic_418
+internet-explorer: 1.0; 
+ topic_427
+routes: 1.0; 
+ topic_428
+configuration: 1.0; 
+ topic_430
+eclipse: 1.0; 
+ topic_431
+matlab: 1.0; 
+ topic_432
+url: 0.8506730198860168; 
+ scroll: 0.14932692050933838; 
+ topic_445
+security: 1.0; 
+ topic_446
+spring-mvc: 0.8073223233222961; 
+ module: 0.19267770648002625; 
+ topic_448
+api: 1.0; 
+ topic_449
+opencv: 1.0; 
+ topic_450
+html: 1.0; 
+ topic_456
+algorithm: 0.8073573708534241; 
+ math: 0.19264261424541473; 
+ topic_459
+oauth: 1.0; 
+ topic_466
+session: 1.0; 
+ topic_470
+wordpress: 1.0; 
+ topic_475
+image: 0.7092882990837097; 
+ image-processing: 0.2907116711139679; 
+ topic_482
+html5: 0.6236097812652588; 
+ websocket: 0.22405999898910522; 
+ canvas: 0.15233026444911957; 
+ topic_484
+jsf: 1.0; 
+ topic_497
+linux-kernel: 1.0; 
+ topic_499
+curl: 0.9756248593330383; 
+ installation: 0.02437516860663891; 
+ topic_525
+css3: 1.0; 
+ topic_528
+python-2.7: 1.0; 
+ topic_529
+graphics: 1.0; 
+ topic_531
+events: 0.5983904600143433; 
+ google-analytics: 0.40160953998565674; 
+ topic_532
+redis: 1.0; 
+ topic_535
+sockets: 0.836745023727417; 
+ tcp: 0.16325491666793823; 
+ topic_541
+oracle: 0.8044323921203613; 
+ jdbc: 0.09851262718439102; 
+ plsql: 0.09705497324466705; 
+ topic_545
+pyqt: 1.0; 
+ topic_548
+graph: 0.5491228103637695; 
+ reporting-services: 0.45087718963623047; 
+ topic_551
+process: 1.0; 
+ topic_552
+mysql: 0.783935546875; 
+ database: 0.216064453125; 
+ topic_555
+postgresql: 1.0; 
+ topic_565
+openssl: 1.0; 
+ topic_569
+compiler-errors: 1.0; 
+ topic_570
+file-upload: 1.0; 
+ topic_571
+web: 1.0; 
+ topic_581
+delphi: 1.0; 
+ topic_587
+pagination: 1.0; 
+ topic_591
+jenkins: 1.0; 
+ topic_592
+cmake: 1.0; 
+ topic_594
+tkinter: 1.0; 
+ topic_598
+parsing: 1.0; 
+ topic_602
+pdf: 1.0; 
+ topic_604
+tfs: 1.0; 
+ topic_608
+methods: 0.7256261706352234; 
+ interface: 0.274373859167099; 
+ topic_609
+ubuntu: 1.0; 
+ topic_613
+validation: 1.0; 
+ topic_619
+build: 1.0; 
+ topic_620
+xpath: 1.0; 
+ topic_622
+post: 0.7031580805778503; 
+ request: 0.2968418598175049; 
+ topic_623
+perl: 1.0; 
+ topic_625
+cmd: 1.0; 
+ topic_627
+cron: 1.0; 
+ topic_632
+user-interface: 1.0; 
+ topic_636
+firefox: 1.0; 
+ topic_639
+safari: 1.0; 
+ topic_641
+ajax: 0.9254993200302124; 
+ iframe: 0.0745006650686264; 
+ topic_650
+cryptography: 1.0; 
+ topic_656
+makefile: 1.0; 
+ topic_658
+lambda: 1.0; 
+ topic_667
+ms-access: 1.0; 
+ topic_670
+callback: 1.0; 
+ topic_673
+colors: 1.0; 
+ topic_674
+activerecord: 1.0; 
+ topic_675
+mvvm: 0.8875694870948792; 
+ drop-down-menu: 0.11243050545454025; 
+ topic_678
+json: 0.994774580001831; 
+ compilation: 0.005225426983088255; 
+ topic_680
+data-binding: 1.0; 
+ topic_688
+error-handling: 1.0; 
+ topic_693
+memory: 1.0; 
+ topic_695
+node.js: 0.8424065113067627; 
+ express: 0.1575935035943985; 
+ topic_697
+list: 0.5132606029510498; 
+ scala: 0.4867393672466278; 
+ topic_700
+encryption: 1.0; 
+ topic_703
+xcode: 0.9203812479972839; 
+ checkbox: 0.07961871474981308; 
+ topic_708
+routing: 0.8237569332122803; 
+ controller: 0.17624309659004211; 
+ topic_711
+video: 1.0; 
+ topic_714
+web-applications: 1.0; 
+ topic_716
+for-loop: 1.0; 
+ topic_722
+design-patterns: 1.0; 
+ topic_725
+uitableview: 1.0; 
+ topic_726
+vb.net: 0.9863049387931824; 
+ timer: 0.01369503140449524; 
+ topic_727
+spring: 1.0; 
+ topic_729
+http: 0.48052719235420227; 
+ file: 0.46941322088241577; 
+ download: 0.02656383067369461; 
+ netbeans: 0.02349581941962242; 
+ topic_733
+go: 1.0; 
+ topic_734
+php: 1.0; 
+ topic_740
+dynamic: 1.0; 
+ topic_742
+swing: 1.0; 
+ topic_744
+split: 1.0; 
+ topic_748
+python-3.x: 1.0; 
+ topic_749
+webview: 1.0; 
+ topic_754
+model-view-controller: 1.0; 
+ topic_755
+entity-framework: 0.9673842191696167; 
+ webforms: 0.032615773379802704; 
+ topic_758
+google-maps: 1.0; 
+ topic_759
+foreach: 1.0; 
+ topic_761
+selenium: 1.0; 
+ topic_765
+parameters: 1.0; 
+ topic_775
+solr: 1.0; 
+ topic_779
+visual-c++: 0.840893030166626; 
+ memory-leaks: 0.15910695493221283; 
+ topic_783
+cookies: 1.0; 
+ topic_791
+android: 1.0; 
+ topic_793
+arrays: 0.9029378890991211; 
+ matrix: 0.05626661702990532; 
+ multidimensional-array: 0.04079550877213478; 
+ topic_798
+cordova: 1.0; 
+ topic_800
+codeigniter: 0.8628795742988586; 
+ model: 0.08477018028497696; 
+ view: 0.05235029757022858; 
+ topic_802
+csv: 1.0; 
+ topic_805
+multithreading: 0.7819765210151672; 
+ data-structures: 0.1313951462507248; 
+ boost: 0.04964115470647812; 
+ path: 0.03698717802762985; 
+ topic_807
+vim: 1.0; 
+ topic_808
+ssh: 1.0; 
+ topic_810
+soap: 1.0; 
+ topic_813
+iis: 1.0; 
+ topic_814
+jpa: 1.0; 
+ topic_817
+mongodb: 1.0; 
+ topic_818
+javascript: 1.0; 
+ topic_824
+printing: 0.7396488189697266; 
+ get: 0.26035115122795105; 
+ topic_826
+xml: 0.8830122947692871; 
+ dom: 0.11698766052722931; 
+ topic_828
+caching: 1.0; 
+ topic_830
+matplotlib: 0.8489128947257996; 
+ charts: 0.15108706057071686; 
+ topic_834
+networking: 1.0; 
+ topic_835
+hash: 1.0; 
+ topic_839
+forms: 1.0; 
+ topic_840
+nginx: 0.8725914359092712; 
+ proxy: 0.12740854918956757; 
+ topic_849
+directory: 1.0; 
+ topic_854
+pointers: 0.8627841472625732; 
+ nested: 0.13721583783626556; 
+ topic_858
+windows: 0.9020565152168274; 
+ winapi: 0.0979434922337532; 
+ topic_870
+select: 1.0; 
+ topic_873
+authentication: 1.0; 
+ topic_875
+performance: 0.7189841866493225; 
+ optimization: 0.2525789439678192; 
+ memory-management: 0.028436770662665367; 
+ topic_886
+azure: 0.8430664539337158; 
+ amazon-ec2: 0.15693357586860657; 
+ topic_889
+mobile: 1.0; 
+ topic_892
+casting: 1.0; 
+ topic_894
+opengl: 0.8454660177230835; 
+ 3d: 0.1545339673757553; 
+ topic_902
+java: 1.0; 
+ topic_903
+c#: 1.0; 
+ topic_905
+awk: 0.5680700540542603; 
+ sed: 0.43192994594573975; 
+ topic_907
+datetime: 0.7881221175193787; 
+ time: 0.21187788248062134; 
+ topic_911
+ruby-on-rails: 0.604397177696228; 
+ ruby: 0.395602822303772; 
+ topic_920
+parallel-processing: 1.0; 
+ topic_921
+powershell: 1.0; 
+ topic_922
+groovy: 0.349945068359375; 
+ spring-security: 0.34024712443351746; 
+ junit: 0.30980777740478516; 
+ topic_923
+gcc: 1.0; 
+ topic_929
+date: 1.0; 
+ topic_930
+automation: 0.8008122444152832; 
+ utf-8: 0.1991877555847168; 
+ topic_943
+hibernate: 0.9395092129707336; 
+ java-ee: 0.06049075722694397; 
+ topic_944
+input: 1.0; 
+ topic_949
+android-layout: 1.0; 
+ topic_954
+typescript: 1.0; 
+ topic_964
+git: 0.639451265335083; 
+ github: 0.21017584204673767; 
+ heroku: 0.1503729373216629; 
+ topic_970
+command-line: 0.7070305943489075; 
+ scripting: 0.2929694354534149; 
+ topic_971
+vba: 0.8327853679656982; 
+ excel-vba: 0.16721461713314056; 
+ topic_977
+deployment: 1.0; 
+ topic_979
+unit-testing: 1.0; 
+ topic_980
+objective-c: 1.0; 
+ topic_983
+object: 0.8404358625411987; 
+ replace: 0.15956416726112366; 
+ topic_994
+wpf: 0.769199788570404; 
+ xaml: 0.23080025613307953; 
+ topic_995
+c++: 1.0; 
+ topic_996
+ms-word: 1.0; 
+ 
