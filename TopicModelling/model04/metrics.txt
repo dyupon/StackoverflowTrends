@@ -1,5 +1,0 @@
-Sparsity Phi:  1.0
-Sparsity Theta:  0.999890148639679
-Kernel contrast:  0.0
-Kernel purity:  0.0
-PerplexityScore:  946.3243408203125
