@@ -1,27 +1,22 @@
 package com.csc;
 
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
 
-class VWConverter {
-    private static CSVParser csvParser = null;
+class VWConverter extends CSVReader {
     private static BufferedWriter writer = null;
 
     VWConverter(String path) {
-        try {
-            Reader reader = new FileReader(path);
-            csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot process CSV file at: " + path + " " + e.getMessage());
-        }
+        super(path);
     }
 
     void convertToVW(List<String> colsToRetrieve, String fileName, String observationIdentity) {
@@ -58,10 +53,11 @@ class VWConverter {
         }
     }
 
-    private void closeIOStreams() {
+    @Override
+    void closeIOStreams() {
         try {
             if (csvParser != null) csvParser.close();
-            if (writer != null) writer.close();
+            super.closeIOStreams();
         } catch (IOException e) {
             throw new RuntimeException("Error while closing IO streams: " + e.getMessage());
         }

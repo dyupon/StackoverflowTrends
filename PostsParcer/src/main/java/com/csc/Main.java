@@ -23,7 +23,7 @@ public class Main {
     }
 
     private static void extractTagsPopularityInformation(String period) {
-        TagsPopularityTracker tracker = new TagsPopularityTracker("");
+        TopicPopularityTracker tracker = new TopicPopularityTracker("DynamicPostsTagsGathered.csv");
         tracker.extractInformation(entryType, period, "quarters", 100);
     }
 
