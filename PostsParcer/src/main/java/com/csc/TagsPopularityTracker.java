@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TagsPopularityTracker extends PostsReader {
+class TagsPopularityTracker extends PostsReader {
 
     private static String TIME_COLUMN = "CreationDate";
     private static String timeBoundsFile = "cacheTimeBounds.txt";
@@ -34,11 +34,15 @@ public class TagsPopularityTracker extends PostsReader {
         super(path);
     }
 
-    void extractInformation(String type, String period, String fileName) {
+    void extractInformation(String type, String period, String fileName, int tagFrequencyThreshold) {
         Date[] timeBounds = deserializeTimeBounds();
         List<String> columns = buildCols(period, timeBounds);
-        for (String column : columns) {
-            System.out.println(column);
+        createCSVFile(fileName, columns);
+        Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
+        tagsFrequencies.values().removeIf(value -> value <= tagFrequencyThreshold);
+        Set<String> tags = tagsFrequencies.keySet();
+        for (String tag: tags) {
+
         }
     }
 
@@ -50,12 +54,12 @@ public class TagsPopularityTracker extends PostsReader {
             int lowerQuarter = QUARTERS.get(timeBounds[0].getMonth());
             int upperQuarter = QUARTERS.get(timeBounds[1].getMonth());
             int numCols = (shift - 1) * 4 + (4 - lowerQuarter + 1) + upperQuarter;
-            for (int i = lowerQuarter - 1; i <= lowerQuarter + numCols; ++i) {
-                if (i % 4 == 1) {
+            for (int i = lowerQuarter; i <= lowerQuarter + numCols; ++i) {
+                if (i % 4 == 0) {
+                    cols.add("4." + currentYear);
                     ++currentYear;
                 }
-                if (i == lowerQuarter - 1) cols.add((i + 1) + "." + currentYear);
-                else cols.add((i % 4 + 1) + "." + currentYear);
+                else cols.add(i % 4 + "." + currentYear);
             }
         }
 

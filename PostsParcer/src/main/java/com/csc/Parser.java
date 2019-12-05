@@ -17,15 +17,14 @@ import java.util.stream.IntStream;
 
 @SuppressWarnings("SameParameterValue")
 class Parser extends PostsReader {
-    private static CSVPrinter csvPrinter = null;
-    private static FileWriter fileWriter = null;
+
     private int tagFrequencyThreshold;
 
     Parser(String path) {
         super(path);
     }
 
-    public void setTagFrequencyThreshold(int tagFrequencyThreshold) {
+    void setTagFrequencyThreshold(int tagFrequencyThreshold) {
         this.tagFrequencyThreshold = tagFrequencyThreshold;
     }
 
@@ -84,7 +83,11 @@ class Parser extends PostsReader {
         System.out.println("Total lines elapsed: " + linesTotal + ", target lines elapsed: " + linesTarget +
                 ", lines without tags elapsed: " + linesInvalid + " in "
                 + Duration.between(lineCountStart, Instant.now()).toMinutes() + " minutes.");
-        closeIOStreams();
+        try {
+            super.closeIOStreams();
+        } catch (IOException e) {
+            throw new RuntimeException("Error while closing output streams: " + e.getMessage());
+        }
     }
 
     private Set<String> cutOffTags() {
@@ -95,17 +98,6 @@ class Parser extends PostsReader {
         return tagsFrequencies.keySet();
     }
 
-    private void createCSVFile(String fileName, List<String> headers) {
-        try {
-            fileWriter = new FileWriter(fileName);
-            String[] headersArr = headers.toArray(new String[0]);
-            csvPrinter = new CSVPrinter(fileWriter,
-                    CSVFormat.DEFAULT.withHeader(headersArr));
-        } catch (Exception e) {
-            throw new RuntimeException("Error while creating output file: " + e.getMessage());
-        }
-    }
-
     void printLine(String type, int amount) {
         String targetType = postType.get(type);
         for (int i = 0; i < amount; ++i) {
@@ -113,17 +105,6 @@ class Parser extends PostsReader {
                 String dbEntry = sc.nextLine();
                 if (dbEntry.contains(targetType)) System.out.println(dbEntry);
             }
-        }
-    }
-
-    @Override
-    protected void closeIOStreams() {
-        try {
-            if (fileWriter != null) fileWriter.close();
-            if (csvPrinter != null) csvPrinter.close();
-            super.closeIOStreams();
-        } catch (IOException ex) {
-            throw new RuntimeException("Error while closing output streams: " + ex.getMessage());
         }
     }
 }

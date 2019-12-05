@@ -23,8 +23,8 @@ public class Main {
     }
 
     private static void extractTagsPopularityInformation(String period) {
-        TagsPopularityTracker tracker = new TagsPopularityTracker("Posts.xml");
-        tracker.extractInformation(entryType, period, "qwerty");
+        TagsPopularityTracker tracker = new TagsPopularityTracker("");
+        tracker.extractInformation(entryType, period, "quarters", 100);
     }
 
     private static void createTagsFrequenciesCSV() {
