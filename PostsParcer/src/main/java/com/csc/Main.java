@@ -10,11 +10,21 @@ import java.util.Map;
 
 public class Main {
 
+    private static String entryType = "posts";
+
+
     public static void main(String[] args) {
         //parseRawData();
-        parseToVW();
+        //parseToVW();
         //serializeTags();
         //createTagsFrequenciesCSV();
+        //printLinesFromRaw();
+        extractTagsPopularityInformation("quarter");
+    }
+
+    private static void extractTagsPopularityInformation(String period) {
+        TagsPopularityTracker tracker = new TagsPopularityTracker("Posts.xml");
+        tracker.extractInformation(entryType, period, "qwerty");
     }
 
     private static void createTagsFrequenciesCSV() {
@@ -45,7 +55,7 @@ public class Main {
     }
 
     private static void parseToVW() {
-        VWConverter vwConverter = new VWConverter("DynamicPostTagsUngathered.csv");
+        VWConverter vwConverter = new VWConverter("DynamicPostTagsUngatheredFinal.csv");
         List<String> colsToRetrieve = new ArrayList<>() {{
             add("Tags");
         }};
@@ -54,7 +64,6 @@ public class Main {
 
     private static void parseRawData() {
         Parser parser = new Parser("Posts.xml");
-        String entryType = "posts";
         parser.setTagFrequencyThreshold(100);
         List<String> cols = new ArrayList<>() {{
             add("Id");
@@ -63,7 +72,12 @@ public class Main {
             add("OwnerUserId");
             add("Tags");
         }};
-        parser.parseToCSV(entryType, cols, "DynamicPostTagsUngathered.csv");
+        parser.parseToCSV(entryType, cols, "DynamicPostTagsUngatheredFinal.csv");
+    }
+
+    private static void printLinesFromRaw() {
+        Parser parser = new Parser("Posts.xml");
+        parser.printLine("posts", 10);
     }
 }
 

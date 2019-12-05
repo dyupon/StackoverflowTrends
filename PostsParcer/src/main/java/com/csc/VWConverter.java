@@ -40,7 +40,7 @@ class VWConverter {
                 } catch (IOException e) {
                     throw new RuntimeException("Error while writing to TXT file " + fileName + " :" + e.getMessage());
                 }
-            } //todo: add several feature namespaces handling (e.g. for dynamic modelling)
+            } //TODO: add several feature namespaces handling (e.g. for dynamic modelling)
             if (lineCount % 100000 == 0)
                 System.out.println("Elapsed: " + lineCount + " lines in " + Duration.between(lineCountStart, Instant.now()).toSeconds() + " seconds");
         }
