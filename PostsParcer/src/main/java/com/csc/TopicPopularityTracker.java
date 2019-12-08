@@ -1,20 +1,19 @@
 package com.csc;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.FileWriter;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TopicPopularityTracker extends CSVReader {
 
-    private static FileWriter fileWriter = null;
-    private static CSVPrinter csvPrinter = null;
-    private static String TIME_COLUMN = "CreationDate";
-    private static String TAG_COLUMN = "CreationDate";
-    private static String TOPIC_COLUMN = "TopicNumber";
-
+    private static List<String> columns = new ArrayList<>();
+    private static List<LocalDateTime> periods = new ArrayList<>();
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
 
     private static Map<Integer, Integer> QUARTERS = new HashMap<>() {{
@@ -32,6 +31,13 @@ public class TopicPopularityTracker extends CSVReader {
         put(Calendar.DECEMBER, 4);
     }};
 
+    private static Map<Integer, Integer> QUARTERS_ENDS = new HashMap<>() {{
+        put(1, 3); // Q1: 1 January – 31 March
+        put(2, 6); // Q2: 1 April – 30 June
+        put(3, 9); // Q3: 1 July – 30 September
+        put(4, 12); // Q4: 1 October – 31 December
+    }};
+
     private static TimeBoundsSerializer serializer;
 
     public TopicPopularityTracker(String fileName) {
@@ -39,63 +45,103 @@ public class TopicPopularityTracker extends CSVReader {
         serializer = new TimeBoundsSerializer(fileName);
     }
 
-    void extractInformation(String type, String period, String fileName, int tagFrequencyThreshold) {
-        Date[] timeBounds = serializer.deserializeTimeBounds();
-        List<String> columns = buildCols(period, timeBounds);
-        columns.add(TOPIC_COLUMN);
-        createCSVFile(fileName, columns);
+    void extractInformation(String fileName, String period, int tagFrequencyThreshold) {
+        Date[] timeBoundsDate = serializer.deserializeTimeBounds(); //todo: initially serialize to LocalDateTime
+        LocalDateTime[] timeBounds = new LocalDateTime[]{
+                timeBoundsDate[0].toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime(),
+                timeBoundsDate[1].toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDateTime()
+        };
+        columns.add("Tag");
+        buildHeaders(period, timeBounds);
+        columns.add("TopicNumber");
         Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
         tagsFrequencies.values().removeIf(value -> value <= tagFrequencyThreshold);
-        Set<String> tags = tagsFrequencies.keySet();
+        Map<String, List<String>> rows = new HashMap<>();
+        for (String key : tagsFrequencies.keySet()) {
+            rows.put(key, new ArrayList<>(columns.size()));
+            Collections.fill(rows.get(key), "0");
+        }
         int lineCount = 0;
+        Instant lineCountStart = Instant.now();
         for (CSVRecord record : csvParser) {
-            String date = record.get(TIME_COLUMN);
-            String tag = record.get(TAG_COLUMN);
+            ++lineCount;
+            String date = record.get("CreationDate");
+            String tag = record.get("Tags");
+            List<String> currentEntry = rows.get(tag);
+            currentEntry.add(0, tag);
+            int colNum = getColToUpdate(date);
+            Integer currentFreq = Integer.getInteger(currentEntry.get(colNum));
+            currentEntry.add(colNum, String.valueOf(currentFreq + 1));
+            rows.put(tag, currentEntry);
+            //todo: retrieve mapping <Tag, TopicNumber> from Python side and put its value to corresponding column
+            if (lineCount % 1000000 == 0) {
+                System.out.println("Elapsed: " + lineCount + " lines in " + Duration.between(lineCountStart, Instant.now()).toSeconds() + " seconds");
+            }
         }
-        //todo: retrieve mapping <Tag, TopicNumber> from Python side
+
+        for (String key : rows.keySet()) {
+            //todo: write to CSV file
+        }
     }
 
-    void createCSVFile(String fileName, List<String> headers) {
-        try {
-            fileWriter = new FileWriter(fileName);
-            String[] headersArr = headers.toArray(new String[0]);
-            csvPrinter = new CSVPrinter(fileWriter,
-                    CSVFormat.DEFAULT.withHeader(headersArr));
-        } catch (Exception e) {
-            throw new RuntimeException("Error while creating output file: " + e.getMessage());
-        }
+    private int getColToUpdate(String date) {
+        LocalDateTime dateTime = LocalDateTime.parse(date, TIME_FORMATTER);
+        // binsearch over periods
+        return 0;
     }
 
-    private List<String> buildCols(String period, Date[] timeBounds) {
-        List<String> cols = new ArrayList<>();
+    private void buildHeaders(String periodType, LocalDateTime[] timeBounds) {
+        periods.add(timeBounds[0]);
         int currentYear = timeBounds[0].getYear() + 1900;
         int shift = timeBounds[1].getYear() - timeBounds[0].getYear();
-        if (period.equals("quarter")) {
-            int lowerQuarter = QUARTERS.get(timeBounds[0].getMonth());
-            int upperQuarter = QUARTERS.get(timeBounds[1].getMonth());
+        if (periodType.equals("quarter")) {
+            int lowerQuarter = QUARTERS.get(timeBounds[0].getMonthValue());
+            int upperQuarter = QUARTERS.get(timeBounds[1].getMonthValue());
             int numCols = (shift - 1) * 4 + (4 - lowerQuarter + 1) + upperQuarter;
             for (int i = lowerQuarter; i <= lowerQuarter + numCols; ++i) {
                 if (i % 4 == 0) {
-                    cols.add("4." + currentYear);
+                    columns.add("4." + currentYear);
+                    periods.add(getEndOfPeriod(periodType, 4, currentYear));
                     ++currentYear;
-                } else cols.add(i % 4 + "." + currentYear);
+                } else {
+                    columns.add(i % 4 + "." + currentYear);
+                    periods.add(getEndOfPeriod(periodType, i % 4, currentYear));
+                }
             }
-        }
-
-        if (period.equals("half-year")) {
+        } else if (periodType.equals("half-year")) {
             int lowerYear = timeBounds[0].getYear() + 1900;
             int upperYear = timeBounds[1].getYear() + 1900;
-            boolean isSecondHalf = (timeBounds[0].getMonth() > 6);
+            boolean isSecondHalf = (timeBounds[0].getMonthValue() > 6);
             for (int i = lowerYear; i <= upperYear; ++i) {
                 if (isSecondHalf)
-                    cols.add("2." + i);
+                    columns.add("2." + i);
                 else {
-                    cols.add("1." + i);
-                    cols.add("2." + i);
+                    columns.add("1." + i);
+                    columns.add("2." + i);
                 }
                 isSecondHalf = false;
             }
-        }
-        return cols;
+        } else throw new IllegalArgumentException("Splitting on " + periodType + " is not supported");
+        periods.add(timeBounds[1]);
+    }
+
+    private LocalDateTime getEndOfPeriod(String periodType, int period, int year) {
+        LocalDateTime result = null;
+        if (periodType.equals("quarter")) {
+            if (period == 1 || period == 4) result = LocalDateTime.of(year, QUARTERS_ENDS.get(period),
+                    31, 23, 59, 59, 999);
+            if (period == 2 || period == 3) result = LocalDateTime.of(year, QUARTERS_ENDS.get(period),
+                    30, 23, 59, 59, 999);
+        } else if (periodType.equals("half-year")) {
+            if (period == 1) result = LocalDateTime.of(year, 6,
+                    30, 23, 59, 59, 999);
+            if (period == 2) result = LocalDateTime.of(year, 6,
+                    31, 23, 59, 59, 999);
+        } else throw new IllegalArgumentException("Splitting on " + periodType + " is not supported");
+        return result;
     }
 }

@@ -24,7 +24,7 @@ public class Main {
 
     private static void extractTagsPopularityInformation(String period) {
         TopicPopularityTracker tracker = new TopicPopularityTracker("DynamicPostsTagsGathered.csv");
-        tracker.extractInformation(entryType, period, "quarters", 100);
+        tracker.extractInformation(entryType, period, 100);
     }
 
     private static void createTagsFrequenciesCSV() {

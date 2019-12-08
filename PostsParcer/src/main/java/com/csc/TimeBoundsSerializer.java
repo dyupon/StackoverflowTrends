@@ -1,9 +1,8 @@
 package com.csc;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -13,7 +12,7 @@ class TimeBoundsSerializer extends PostsReader {
 
     private static String TIME_COLUMN = "CreationDate";
     private static String timeBoundsFile = "cacheTimeBounds.txt";
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    private static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
     private static final Date PAST = new Date(0);
     private static final Date FUTURE = new Date(2025, Calendar.JANUARY, 1);
 
@@ -46,8 +45,7 @@ class TimeBoundsSerializer extends PostsReader {
                 Matcher matcher = pattern.matcher(dbEntry);
                 if (matcher.find()) {
                     try {
-                        long millis = TIME_FORMATTER.parseMillis(matcher.group(1));
-                        Date currentTime = new Date(millis);
+                        Date currentTime = TIME_FORMATTER.parse(matcher.group(1));
                         if (currentTime.compareTo(currentOldest) < 0) currentOldest = currentTime;
                         if (currentTime.compareTo(currentNewest) > 0) currentNewest = currentTime;
                     } catch (Exception e) {
