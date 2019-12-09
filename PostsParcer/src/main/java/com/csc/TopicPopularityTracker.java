@@ -1,7 +1,11 @@
 package com.csc;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -14,7 +18,8 @@ public class TopicPopularityTracker extends CSVReader {
     private static List<String> columns = new ArrayList<>();
     private static List<LocalDateTime> periods = new ArrayList<>();
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-
+    private static CSVPrinter csvPrinter = null;
+    private static FileWriter fileWriter = null;
 
     private static Map<Integer, Integer> QUARTERS = new HashMap<>() {{
         put(Calendar.JANUARY, 1);
@@ -65,6 +70,12 @@ public class TopicPopularityTracker extends CSVReader {
             rows.put(key, new ArrayList<>(columns.size()));
             Collections.fill(rows.get(key), "0");
         }
+        //todo: retrieve mapping <Tag, TopicNumber> from Python side and put its value to corresponding column
+        CSVReader csvReader = new CSVReader("tagsTopics.csv");
+        for (CSVRecord record: csvReader.csvParser) {
+            //todo: retrieve model
+        }
+
         int lineCount = 0;
         Instant lineCountStart = Instant.now();
         for (CSVRecord record : csvParser) {
@@ -77,20 +88,26 @@ public class TopicPopularityTracker extends CSVReader {
             Integer currentFreq = Integer.getInteger(currentEntry.get(colNum));
             currentEntry.add(colNum, String.valueOf(currentFreq + 1));
             rows.put(tag, currentEntry);
-            //todo: retrieve mapping <Tag, TopicNumber> from Python side and put its value to corresponding column
             if (lineCount % 1000000 == 0) {
                 System.out.println("Elapsed: " + lineCount + " lines in " + Duration.between(lineCountStart, Instant.now()).toSeconds() + " seconds");
             }
         }
-
-        for (String key : rows.keySet()) {
-            //todo: write to CSV file
+        createCSVFile("TagsPeriods.csv", columns);
+        for (Map.Entry<String, List<String>> entry : rows.entrySet()) {
+            try {
+                List<String> row = entry.getValue();
+                row.add(0, entry.getKey());
+                csvPrinter.printRecord(row);
+                csvPrinter.flush();
+            } catch (IOException e) {
+                throw new RuntimeException("Error while writing row " + entry.getValue() + ": " + e.getMessage());
+            }
         }
     }
 
     private int getColToUpdate(String date) {
         LocalDateTime dateTime = LocalDateTime.parse(date, TIME_FORMATTER);
-        // binsearch over periods
+        //todo: binsearch over periods
         return 0;
     }
 
@@ -143,5 +160,16 @@ public class TopicPopularityTracker extends CSVReader {
                     31, 23, 59, 59, 999);
         } else throw new IllegalArgumentException("Splitting on " + periodType + " is not supported");
         return result;
+    }
+
+    private void createCSVFile(String fileName, List<String> headers) {
+        try {
+            fileWriter = new FileWriter(fileName);
+            String[] headersArr = headers.toArray(new String[0]);
+            csvPrinter = new CSVPrinter(fileWriter,
+                    CSVFormat.DEFAULT.withHeader(headersArr));
+        } catch (Exception e) {
+            throw new RuntimeException("Error while creating output file: " + e.getMessage());
+        }
     }
 }

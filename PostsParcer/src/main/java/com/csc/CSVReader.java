@@ -23,5 +23,4 @@ public class CSVReader {
     void closeIOStreams() throws IOException {
         if (csvParser != null) csvParser.close();
     }
-
 }
