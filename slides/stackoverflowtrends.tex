@@ -1,0 +1,110 @@
+\documentclass[pdf, 9pt,intlimits, unicode]{beamer}
+\usepackage[T2A]{fontenc}       %поддержка кириллицы
+\usepackage[cp1251]{inputenc}   %пока бибтех не дружит до конца с юникодом
+\usepackage[russian]{babel}     %определение языков в документе
+\usepackage{amssymb,amsmath}    %математика
+\usepackage{float}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{subfigure}
+\usepackage{mathrsfs}
+% Тема презентации
+\usetheme[numbers, totalnumbers, nonav]{Statmod}
+\usepackage{diagbox}
+% Привычный шрифт для математических формул
+\usefonttheme[onlymath]{serif}
+
+% Более крупный шрифт для подзаголовков титульного листа
+\setbeamerfont{institute}{size=\normalsize}
+
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+	\setlength{\textwidth}{#1}
+	\begin{actionenv}#3%
+		\def\insertblocktitle{#2}%
+		\par%
+		\usebeamertemplate{block begin}}
+	{\par%
+		\usebeamertemplate{block end}%
+\end{actionenv}}
+
+%Задание команды (\bluetext) для выделения конкретным (синим) цветом
+%(используйте \alert для выделения цветом выбранной "темы")
+\setbeamercolor{bluetext_color}{fg=blue}
+\newcommand{\bluetext}[1]{{\usebeamercolor[fg]{bluetext_color}#1}}
+\title[Stackoverflow trends]{Stackoverflow trends}
+\author[Понизова Вероника]{Понизова Вероника}
+
+\institute{
+	Computer Science Center \\ \ \\
+	Руководитель: Аркадий Калакуцкий, JetBrains
+		\vspace{0.5cm}}
+
+\date{
+	Санкт-Петербург\\
+	2019г.
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Постановка задачи}
+
+\end{frame}
+
+\begin{frame}\frametitle{Краткое введение в тематическое моделирование}
+\end{frame}
+
+\begin{frame}\frametitle{Тематическое моделирование в рассматриваемой задаче}
+\textcolor{blue}{\textbf{Проблемы:}}
+\begin{itemize}
+	\item BigARTM --- opensource--библиотека, которая написана студентами ВМК МГУ и в настоящее время не развивается;
+	\item официальный релиз поддерживает исключительно API для Python 2.7;
+	\item offline--версия алгоритма требует больших ресурсов RAM, online--версия работает с багами.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Подготовка данных}
+\textbf{Исходная запись:} \\ \texttt{<row~Id="\textcolor{blue}{9}"\text{ } PostTypeId="1"\text{ }AcceptedAnswerId="1404"\text{ } CreationDate="\textcolor{red}{2008-07-31T23:40:59.743}"\text{ }Score="1742"\text{ } ViewCount="555183"\text{ } Body="\&lt;p\&gt;Given a \&lt;code\&gt;DateTime\&lt;\/code\&gt; representing a person's birthday, how do I calculate their age in years?  \&lt; /p\&gt;\&\#xA;"\text{ } OwnerUserId="\textcolor{red}{1}"\text{ } LastEditorUserId="3956566" \text{ }LastEditorDisplayName="Rich B"\text{ } LastEditDate="2018-04-21T17:48:14.477"\text{ } LastActivityDate="2019-06-26T15:25:44.253"\text{ } Title="How do I calculate someone's age in C\#?"\text{ } Tags="\textcolor{blue}{\&lt;c\#\&gt;\&lt;.net\&gt;\&lt;datetime\&gt;}"\text{ } AnswerCount="63" \text{ }CommentCount="5"\text{ } FavoriteCount="436"\text{ } CommunityOwnedDate="2011-08-16T19:40:43.080" />}
+
+\textbf{Преобразованная запись:} \\ \texttt{post9 c\# .net datetime}
+
+\textbf{Вспомогательное представление:} \\ \texttt{9,   2008-07-31T23:40:59.743, 1, c\#} \\
+\texttt{9, 2008-07-31T23:40:59.743, 1, .net} \\
+\texttt{9, 2008-07-31T23:40:59.743, 1, datetime}
+\end{frame}
+
+\begin{frame}\frametitle{Как не надо делать}
+\begin{figure}[h]
+	{\includegraphics[width=250pt, height=100pt]{hownotto.jpg}}
+\end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Результаты}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Результаты}
+
+\end{frame}
+
+\begin{frame}\frametitle{Заключение}
+Итоги работы над проектом:
+\begin{itemize}
+	\item
+\end{itemize}
+
+Дальнейшие планы: 
+\begin{itemize}
+	\item рефакторинг существующей кодовой базы;
+	\item выработка четких рекомендаций по подбору параметров;
+	\item применение динамического тематического моделирования (BigARTM, gensim);
+	\item имплементация дашборда для интерактивной визуализации (R Shiny).
+\end{itemize}
+\end{frame}
+\end{document}

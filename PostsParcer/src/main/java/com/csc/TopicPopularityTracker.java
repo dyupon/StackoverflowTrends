@@ -63,19 +63,20 @@ public class TopicPopularityTracker extends CSVReader {
         columns.add("Tag");
         buildHeaders(period, timeBounds);
         columns.add("TopicNumber");
-        Map<String, Integer> tagsFrequencies = TagsFrequenciesSerializer.deserialize();
-        tagsFrequencies.values().removeIf(value -> value <= tagFrequencyThreshold);
+        columns.add("Propensity");
+        Map<String, Integer> notCountedTags = TagsFrequenciesSerializer.deserialize();
+        notCountedTags.values().removeIf(value -> value > tagFrequencyThreshold);
+        ModelExtractor modelExtractor = new ModelExtractor("tag2topic_final2.csv"); //todo: set model from above
+        Map<String, TagClustering> model = modelExtractor.extractModel();
+        model.keySet().removeAll(notCountedTags.keySet());
         Map<String, List<String>> rows = new HashMap<>();
-        for (String key : tagsFrequencies.keySet()) {
-            rows.put(key, new ArrayList<>(columns.size()));
-            Collections.fill(rows.get(key), "0");
+        for (String tag : model.keySet()) {
+            List<String> row = new ArrayList<>(Collections.nCopies(columns.size(), String.valueOf(0)));
+            Collections.fill(row, String.valueOf(0));
+            row.set(columns.size() - 1, String.valueOf(model.get(tag).getPropensity()));
+            row.set(columns.size() - 2, model.get(tag).getTopic());
+            rows.put(tag, row);
         }
-        //todo: retrieve mapping <Tag, TopicNumber> from Python side and put its value to corresponding column
-        CSVReader csvReader = new CSVReader("tagsTopics.csv");
-        for (CSVRecord record: csvReader.csvParser) {
-            //todo: retrieve model
-        }
-
         int lineCount = 0;
         Instant lineCountStart = Instant.now();
         for (CSVRecord record : csvParser) {
@@ -83,20 +84,20 @@ public class TopicPopularityTracker extends CSVReader {
             String date = record.get("CreationDate");
             String tag = record.get("Tags");
             List<String> currentEntry = rows.get(tag);
-            currentEntry.add(0, tag);
+            if (currentEntry == null) continue;
+            currentEntry.set(0, tag);
             int colNum = getColToUpdate(date);
-            Integer currentFreq = Integer.getInteger(currentEntry.get(colNum));
-            currentEntry.add(colNum, String.valueOf(currentFreq + 1));
+            int currentFreq = Integer.parseInt(currentEntry.get(colNum));
+            currentEntry.set(colNum, String.valueOf(currentFreq + 1));
             rows.put(tag, currentEntry);
             if (lineCount % 1000000 == 0) {
                 System.out.println("Elapsed: " + lineCount + " lines in " + Duration.between(lineCountStart, Instant.now()).toSeconds() + " seconds");
             }
         }
-        createCSVFile("TagsPeriods.csv", columns);
+        createCSVFile(fileName, columns);
         for (Map.Entry<String, List<String>> entry : rows.entrySet()) {
             try {
                 List<String> row = entry.getValue();
-                row.add(0, entry.getKey());
                 csvPrinter.printRecord(row);
                 csvPrinter.flush();
             } catch (IOException e) {
@@ -108,12 +109,17 @@ public class TopicPopularityTracker extends CSVReader {
     private int getColToUpdate(String date) {
         LocalDateTime dateTime = LocalDateTime.parse(date, TIME_FORMATTER);
         //todo: binsearch over periods
-        return 0;
+        for (int i = 1; i < periods.size(); ++i) {
+            if ((periods.get(i - 1).compareTo(dateTime) <= 0) && (periods.get(i).compareTo(dateTime) > 0)) {
+                return i;
+            }
+        }
+        throw new RuntimeException("Some tags appeared exactly at periods joining: " + dateTime.toString());
     }
 
     private void buildHeaders(String periodType, LocalDateTime[] timeBounds) {
         periods.add(timeBounds[0]);
-        int currentYear = timeBounds[0].getYear() + 1900;
+        int currentYear = timeBounds[0].getYear();
         int shift = timeBounds[1].getYear() - timeBounds[0].getYear();
         if (periodType.equals("quarter")) {
             int lowerQuarter = QUARTERS.get(timeBounds[0].getMonthValue());
@@ -130,15 +136,20 @@ public class TopicPopularityTracker extends CSVReader {
                 }
             }
         } else if (periodType.equals("half-year")) {
-            int lowerYear = timeBounds[0].getYear() + 1900;
-            int upperYear = timeBounds[1].getYear() + 1900;
+            int lowerYear = timeBounds[0].getYear();
+            int upperYear = timeBounds[1].getYear();
             boolean isSecondHalf = (timeBounds[0].getMonthValue() > 6);
             for (int i = lowerYear; i <= upperYear; ++i) {
-                if (isSecondHalf)
+                if (isSecondHalf) {
                     columns.add("2." + i);
-                else {
+                    periods.add(getEndOfPeriod(periodType, 2, currentYear));
+                    ++currentYear;
+                } else {
                     columns.add("1." + i);
                     columns.add("2." + i);
+                    periods.add(getEndOfPeriod(periodType, 1, currentYear));
+                    periods.add(getEndOfPeriod(periodType, 2, currentYear));
+                    ++currentYear;
                 }
                 isSecondHalf = false;
             }
@@ -156,7 +167,7 @@ public class TopicPopularityTracker extends CSVReader {
         } else if (periodType.equals("half-year")) {
             if (period == 1) result = LocalDateTime.of(year, 6,
                     30, 23, 59, 59, 999);
-            if (period == 2) result = LocalDateTime.of(year, 6,
+            if (period == 2) result = LocalDateTime.of(year, 12,
                     31, 23, 59, 59, 999);
         } else throw new IllegalArgumentException("Splitting on " + periodType + " is not supported");
         return result;
@@ -171,5 +182,12 @@ public class TopicPopularityTracker extends CSVReader {
         } catch (Exception e) {
             throw new RuntimeException("Error while creating output file: " + e.getMessage());
         }
+    }
+
+    @Override
+    void closeIOStreams() throws IOException {
+        if (csvPrinter != null) csvPrinter.close();
+        if (fileWriter != null) fileWriter.close();
+        super.closeIOStreams();
     }
 }

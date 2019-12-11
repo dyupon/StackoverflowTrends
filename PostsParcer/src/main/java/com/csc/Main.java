@@ -19,12 +19,12 @@ public class Main {
         //serializeTags();
         //createTagsFrequenciesCSV();
         //printLinesFromRaw();
-        extractTagsPopularityInformation("quarter");
+        extractTagsPopularityInformation("half-year");
     }
 
     private static void extractTagsPopularityInformation(String period) {
         TopicPopularityTracker tracker = new TopicPopularityTracker("DynamicPostsTagsGathered.csv");
-        tracker.extractInformation(entryType, period, 100);
+        tracker.extractInformation("final2_year.csv", period, 100);
     }
 
     private static void createTagsFrequenciesCSV() {
