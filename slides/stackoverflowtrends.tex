@@ -9,6 +9,8 @@
 \usepackage{caption}
 \usepackage{subfigure}
 \usepackage{mathrsfs}
+\usepackage{cancel}
+
 % Тема презентации
 \usetheme[numbers, totalnumbers, nonav]{Statmod}
 \usepackage{diagbox}
@@ -52,13 +54,44 @@
 \end{frame}
 
 \begin{frame}\frametitle{Постановка задачи}
-
+\textbf{Вопросы} на stackoverflow.com:
+\begin{figure}[h!] 		
+	{\includegraphics[width=300pt, height=80pt]{so1.png}}
+\end{figure}
+\textbf{Тэги} на stackoverflow.com: 
+\begin{itemize}
+	\item модерируются специальными людьми;
+	\item будучи прикрепленными к вопросу, отражают его тематику (технологии, фреймворки, ЯП).
+\end{itemize} \ \\
+\textcolor{blue}{\textbf{Задача:}} кластеризовать множество тэгов, проанализировать рост популярности получившихся кластеров. \\ \ \\
+<<Выявление сообществ в Stackoverglow>> [Поляков С.Г., 2017]: тематические модели справляются лучше, чем графовые методы кластеризации.
 \end{frame}
-
 \begin{frame}\frametitle{Краткое введение в тематическое моделирование}
-\end{frame}
-
+	Пусть $D \times W \times T$ --- вероятностное пространство <<тэги $\times$ посты $\times$ темы>>. Формула полной вероятности: 
+	\begin{equation*}
+	\text{p} (w | d) = \sum_{t \in T}{\text{p}}(w | \textcolor{red}{\cancel{d}}, t) \text{p}(t | d).
+	\end{equation*}
+\textbf{Дано:} $n_{dw}$ --- частоты, $\hat{\text{p}}(w|d) = \frac{n_{dw}}{n_d}$. \\
+\textbf{Найти:} параметры тематической модели
+\begin{itemize}
+	\item $\text{p}(w|t) = \phi_{wt}$ --- вероятности тэгов $w$ в каждой теме $t$;
+	\item $\text{p}(t|d) = \theta_{td}$ --- вероятности тем $t$ в каждом документе $d$.   
+\end{itemize} 
+Это задача стохастического матричного разложения: 
+\begin{figure}[h!] 		
+	{\includegraphics[width=240pt, height=80pt]{decomposition.png}}
+\end{figure}
+\textbf{Способ решения:} максимизация логарифма правдоподобия с регуляризацией c помощью ЕМ--алгоритма (online--версия и offline--версия).
+\end{frame} 
 \begin{frame}\frametitle{Тематическое моделирование в рассматриваемой задаче}
+\textbf{Источник данных:} открытый дамп постов stackoverflow.com в период c 31.07.2008 по 1.09.2019.
+
+\begin{itemize}
+	\item Общее число тэгов: $W = 18$ тыс. (до отсечения редко встречающихся $W = 55$ тыс.);
+	\item общее число документов: $|D| = 18.1$ млн (до отсечения комментариев $|D| = 45.9$ млн);
+	\item число тем задается произвольно, рекомендаций по подбору параметра нет.
+\end{itemize}
+Единственная библиотека, реализующая подход тематического моделирования с регуляризацией: BigARTM (C++, Python/CLI API).
 \textcolor{blue}{\textbf{Проблемы:}}
 \begin{itemize}
 	\item BigARTM --- opensource--библиотека, которая написана студентами ВМК МГУ и в настоящее время не развивается;
@@ -79,6 +112,11 @@
 \end{frame}
 
 \begin{frame}\frametitle{Как не надо делать}
+\textcolor{blue}{\textbf{Главная проблема:}} для обучения модели не хватало вычислительных мощностей, online--версия алгоритма работала неделю на машине с RAM = 16Gb. \\ \ \\
+\textbf{Решение:} использование достаточно мощной виртуальной машины на Google Cloud Platform. \\ \ \\
+\begin{center}
+	Никогда не оставляйте web--interface Jupyter notebook незащищенным:
+\end{center}
 \begin{figure}[h]
 	{\includegraphics[width=250pt, height=100pt]{hownotto.jpg}}
 \end{figure}
@@ -96,13 +134,14 @@
 \begin{frame}\frametitle{Заключение}
 Итоги работы над проектом:
 \begin{itemize}
-	\item
+	\item получена возможность строить тематические модели с помощью BigARTM для достаточно массивных коллекций;
+	\item получена интерпретация моделей, найденных с помощью GridSearch по фиксированному множеству моделей.
 \end{itemize}
 
 Дальнейшие планы: 
 \begin{itemize}
 	\item рефакторинг существующей кодовой базы;
-	\item выработка четких рекомендаций по подбору параметров;
+	\item выработка рекомендаций по подбору параметров для поставленной задачи;
 	\item применение динамического тематического моделирования (BigARTM, gensim);
 	\item имплементация дашборда для интерактивной визуализации (R Shiny).
 \end{itemize}

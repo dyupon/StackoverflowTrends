@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.9.30)  11 DEC 2019 04:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.9.30)  13 DEC 2019 00:01
 entering extended mode
 **./stackoverflowtrends.tex
 (stackoverflowtrends.tex
@@ -1092,6 +1092,9 @@ ty"
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 )
+("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\cancel\cancel.sty"
+Package: cancel 2013/04/12 v2.2 Cancel math terms
+)
 ("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\beamer\themes\theme
 \beamerthemeStatmod.sty"
 Package: beamerthemeStatmod 2007/05/12
@@ -1219,29 +1222,29 @@ Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
 (stackoverflowtrends.aux)
 \openout1 = `stackoverflowtrends.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 48.
-LaTeX Font Info:    Try loading font information for T2A+cmr on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 50.
+LaTeX Font Info:    Try loading font information for T2A+cmr on input line 50.
 
 ("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\cyrillic\t2acmr.fd"
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    ... okay on input line 50.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1309,7 +1312,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 ) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box88
-Package hyperref Info: Link coloring OFF on input line 48.
+Package hyperref Info: Link coloring OFF on input line 50.
 
 ("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hyperref\nameref.st
 y"
@@ -1321,9 +1324,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count192
 )
-LaTeX Info: Redefining \ref on input line 48.
-LaTeX Info: Redefining \pageref on input line 48.
-LaTeX Info: Redefining \nameref on input line 48.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
  (stackoverflowtrends.out) (stackoverflowtrends.out)
 \@outlinefile=\write5
 \openout5 = `stackoverflowtrends.out'.
@@ -1360,16 +1363,42 @@ Package caption Info: End \AtBeginDocument code.
 
 {C:/Users/User/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Use
 r/AppData/Local/Programs/MiKTeX 2.9/tex/latex/beamer/themes/outer/statmod/logo.
-pdf>] [2
+pdf>]
+<so1.png, id=37, 529.22719pt x 148.30406pt>
+File: so1.png Graphic file (type png)
+<use so1.png>
+Package pdftex.def Info: so1.png  used on input line 68.
+(pdftex.def)             Requested size: 299.9991pt x 80.00153pt.
+ [2
 
-]
+ <./so1.png>]
+LaTeX Font Info:    Try loading font information for U+msa on input line 85.
+
+("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 85.
+
+("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 85.
+
+("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\jknappen\ursfs.fd"
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+<decomposition.png, id=51, 576.65437pt x 211.54031pt>
+File: decomposition.png Graphic file (type png)
+<use decomposition.png>
+Package pdftex.def Info: decomposition.png  used on input line 85.
+(pdftex.def)             Requested size: 240.00221pt x 79.9988pt.
 [3
 
-] [4
+ <./decomposition.png>] [4
 
 ]
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 79.
-
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 112
+.
 
 ("C:\Users\User\AppData\Local\Programs\MiKTeX 2.9\tex\latex\cyrillic\t2acmtt.fd
 "
@@ -1377,10 +1406,10 @@ File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ) [5
 
 ]
-<hownotto.jpg, id=67, 504.08325pt x 196.93575pt>
+<hownotto.jpg, id=80, 504.08325pt x 196.93575pt>
 File: hownotto.jpg Graphic file (type jpg)
 <use hownotto.jpg>
-Package pdftex.def Info: hownotto.jpg  used on input line 85.
+Package pdftex.def Info: hownotto.jpg  used on input line 123.
 (pdftex.def)             Requested size: 249.99501pt x 100.00015pt.
  [6
 
@@ -1400,20 +1429,20 @@ Package pdftex.def Info: hownotto.jpg  used on input line 85.
 \tf@snm=\write8
 \openout8 = `stackoverflowtrends.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 110.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 110.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 149.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 149.
  (stackoverflowtrends.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 110.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 110.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 149.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 149.
 Package rerunfilecheck Info: File `stackoverflowtrends.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 23809 strings out of 492970
- 425827 string characters out of 3127038
- 512630 words of memory out of 3000000
- 27155 multiletter control sequences out of 15000+200000
- 9496 words of font info for 23 fonts, out of 3000000 for 9000
+ 23916 strings out of 492970
+ 427930 string characters out of 3127038
+ 515485 words of memory out of 3000000
+ 27231 multiletter control sequences out of 15000+200000
+ 13437 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,57p,912b,525s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\User\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t2a\dpi600\lat
@@ -1422,10 +1451,19 @@ t0900.pk> <C:\Users\User\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\lh\lh-t2a\dpi
 t2a\dpi600\lass0500.pk> <C:\Users\User\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
 \lh\lh-t2a\dpi600\lass0600.pk> <C:\Users\User\AppData\Local\MiKTeX\2.9\fonts\pk
 \ljfour\lh\lh-t2a\dpi600\lass0900.pk> <C:\Users\User\AppData\Local\MiKTeX\2.9\f
-onts\pk\ljfour\lh\lh-t2a\dpi600\lass1095.pk>
-Output written on stackoverflowtrends.pdf (9 pages, 207716 bytes).
+onts\pk\ljfour\lh\lh-t2a\dpi600\lass1095.pk><C:/Users/User/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/User/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/User
+s/User/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.p
+fb><C:/Users/User/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmmi9.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmr9.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/User/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/User/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/latxfont/line10.pfb>
+Output written on stackoverflowtrends.pdf (9 pages, 307576 bytes).
 PDF statistics:
- 375 PDF objects out of 1000 (max. 8388607)
+ 454 PDF objects out of 1000 (max. 8388607)
  19 named destinations out of 1000 (max. 500000)
- 89 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 99 words of extra memory for PDF output out of 10000 (max. 10000000)
 
