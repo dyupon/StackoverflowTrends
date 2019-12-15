@@ -56,59 +56,73 @@
 \begin{frame}\frametitle{Постановка задачи}
 \textbf{Вопросы} на stackoverflow.com:
 \begin{figure}[h!] 		
-	{\includegraphics[width=300pt, height=80pt]{so1.png}}
+	{\includegraphics[width=230pt, height=60pt]{so1.png}}
 \end{figure}
 \textbf{Тэги} на stackoverflow.com: 
 \begin{itemize}
 	\item модерируются специальными людьми;
-	\item будучи прикрепленными к вопросу, отражают его тематику (технологии, фреймворки, ЯП).
-\end{itemize} \ \\
+	\item будучи прикрепленными к вопросу, отражают его тематику.
+\end{itemize} \ \\ \ \\
 \textcolor{blue}{\textbf{Задача:}} кластеризовать множество тэгов, проанализировать рост популярности получившихся кластеров. \\ \ \\
 <<Выявление сообществ в Stackoverglow>> [Поляков С.Г., 2017]: тематические модели справляются лучше, чем графовые методы кластеризации.
 \end{frame}
 \begin{frame}\frametitle{Краткое введение в тематическое моделирование}
-	Пусть $D \times W \times T$ --- вероятностное пространство <<тэги $\times$ посты $\times$ темы>>. Формула полной вероятности: 
+	Пусть $D \times W \times T$ --- вероятностное пространство <<тэги $\times$ посты $\times$ темы>>. Тогда:
 	\begin{equation*}
 	\text{p} (w | d) = \sum_{t \in T}{\text{p}}(w | \textcolor{red}{\cancel{d}}, t) \text{p}(t | d).
 	\end{equation*}
-\textbf{Дано:} $n_{dw}$ --- частоты, $\hat{\text{p}}(w|d) = \frac{n_{dw}}{n_d}$. \\
-\textbf{Найти:} параметры тематической модели
-\begin{itemize}
-	\item $\text{p}(w|t) = \phi_{wt}$ --- вероятности тэгов $w$ в каждой теме $t$;
-	\item $\text{p}(t|d) = \theta_{td}$ --- вероятности тем $t$ в каждом документе $d$.   
-\end{itemize} 
+\textbf{Дано:} $n_{dw}$ --- частоты; \\
+\textbf{Найти:} $\text{p}(w|t) = \phi_{wt}$ --- вероятности тэгов $w$ в каждой теме $t$.
+\\ \ \\
 Это задача стохастического матричного разложения: 
 \begin{figure}[h!] 		
 	{\includegraphics[width=240pt, height=80pt]{decomposition.png}}
 \end{figure}
 \textbf{Способ решения:} максимизация логарифма правдоподобия с регуляризацией c помощью ЕМ--алгоритма (online--версия и offline--версия).
 \end{frame} 
+
 \begin{frame}\frametitle{Тематическое моделирование в рассматриваемой задаче}
-\textbf{Источник данных:} открытый дамп постов stackoverflow.com в период c 31.07.2008 по 1.09.2019.
+\textbf{Регуляризация}:
+\begin{itemize}
+	\item разреживание матрицы $\Phi$ с распределениями слов по темам;
+	\item декоррелирование тем.
+\end{itemize} \ \\ \ \\
+ Регуляризация может привести к тому, что с точки зрения модели некоторые тэги окажутся незначимыми. \\ \ \\ 
+\textbf{Метрики качества}:
+\begin{itemize}
+	\item перплексия;
+	\item разреженность матрицы $\Phi$;
+	\item чистота тем;
+	\item контрастность тем.
+\end{itemize} 
+\ \\ \ \\
+Поиск лучшей модели: GridSearch по заданному пространству параметров.
+\end{frame}
+
+\begin{frame}\frametitle{Тематическое моделирование в рассматриваемой задаче}
+\textbf{Источник данных:} открытый дамп постов stackoverflow.com в период c 31.07.2008 по 1.09.2019. После подготовки данных:
 
 \begin{itemize}
-	\item Общее число тэгов: $W = 18$ тыс. (до отсечения редко встречающихся $W = 55$ тыс.);
-	\item общее число документов: $|D| = 18.1$ млн (до отсечения комментариев $|D| = 45.9$ млн);
-	\item число тем задается произвольно, рекомендаций по подбору параметра нет.
-\end{itemize}
-Единственная библиотека, реализующая подход тематического моделирования с регуляризацией: BigARTM (C++, Python/CLI API).
+	\item общее число тэгов: $W = 18$ тыс.;
+	\item общее число документов: $|D| = 18.1$ млн.
+\end{itemize} \ \\ \ \\
+Построение модели: BigARTM (C++, Python/CLI API). \\ \ \\
 \textcolor{blue}{\textbf{Проблемы:}}
 \begin{itemize}
-	\item BigARTM --- opensource--библиотека, которая написана студентами ВМК МГУ и в настоящее время не развивается;
-	\item официальный релиз поддерживает исключительно API для Python 2.7;
+	\item BigARTM --- opensource--библиотека, которая в настоящее время не развивается и последний официальный релиз поддерживает исключительно API для Python 2.7;
 	\item offline--версия алгоритма требует больших ресурсов RAM, online--версия работает с багами.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}\frametitle{Подготовка данных}
-\textbf{Исходная запись:} \\ \texttt{<row~Id="\textcolor{blue}{9}"\text{ } PostTypeId="1"\text{ }AcceptedAnswerId="1404"\text{ } CreationDate="\textcolor{red}{2008-07-31T23:40:59.743}"\text{ }Score="1742"\text{ } ViewCount="555183"\text{ } Body="\&lt;p\&gt;Given a \&lt;code\&gt;DateTime\&lt;\/code\&gt; representing a person's birthday, how do I calculate their age in years?  \&lt; /p\&gt;\&\#xA;"\text{ } OwnerUserId="\textcolor{red}{1}"\text{ } LastEditorUserId="3956566" \text{ }LastEditorDisplayName="Rich B"\text{ } LastEditDate="2018-04-21T17:48:14.477"\text{ } LastActivityDate="2019-06-26T15:25:44.253"\text{ } Title="How do I calculate someone's age in C\#?"\text{ } Tags="\textcolor{blue}{\&lt;c\#\&gt;\&lt;.net\&gt;\&lt;datetime\&gt;}"\text{ } AnswerCount="63" \text{ }CommentCount="5"\text{ } FavoriteCount="436"\text{ } CommunityOwnedDate="2011-08-16T19:40:43.080" />}
+\textbf{Исходная запись:} \\ \texttt{<row~Id="\textcolor{blue}{9}"\text{ } PostTypeId="1"\text{ }AcceptedAnswerId="1404"\text{ } CreationDate="\textcolor{red}{2008-07-31T23:40:59.743}"\text{ }Score="1742"\text{ } ViewCount="555183"\text{ } Body="\&lt;p\&gt;Given a \&lt;code\&gt;DateTime\&lt;\/code\&gt; representing a person's birthday, how do I calculate their age in years?  \&lt; /p\&gt;\&\#xA;"\text{ } OwnerUserId="1"\text{ } LastEditorUserId="3956566" \text{ }LastEditorDisplayName="Rich B"\text{ } LastEditDate="2018-04-21T17:48:14.477"\text{ } LastActivityDate="2019-06-26T15:25:44.253"\text{ } Title="How do I calculate someone's age in C\#?"\text{ } Tags="\textcolor{blue}{\&lt;c\#\&gt;\&lt;.net\&gt;\&lt;datetime\&gt;}"\text{ } AnswerCount="63" \text{ }CommentCount="5"\text{ } FavoriteCount="436"\text{ } CommunityOwnedDate="2011-08-16T19:40:43.080" />}
 
 \textbf{Преобразованная запись:} \\ \texttt{post9 c\# .net datetime}
 
-\textbf{Вспомогательное представление:} \\ \texttt{9,   2008-07-31T23:40:59.743, 1, c\#} \\
-\texttt{9, 2008-07-31T23:40:59.743, 1, .net} \\
-\texttt{9, 2008-07-31T23:40:59.743, 1, datetime}
+\textbf{Вспомогательное представление:} \\ \texttt{9,   2008-07-31T23:40:59.743, c\#} \\
+\texttt{9, 2008-07-31T23:40:59.743, .net} \\
+\texttt{9, 2008-07-31T23:40:59.743, datetime}
 \end{frame}
 
 \begin{frame}\frametitle{Как не надо делать}
@@ -118,17 +132,23 @@
 	Никогда не оставляйте web--interface Jupyter notebook незащищенным:
 \end{center}
 \begin{figure}[h]
-	{\includegraphics[width=250pt, height=100pt]{hownotto.jpg}}
+	{\includegraphics[width=260pt, height=100pt]{hownotto.jpg}}
 \end{figure}
 \end{frame}
 
-\begin{frame}\frametitle{Результаты}
-
+\begin{frame}\frametitle{Результаты: n\_topics = 1000}
+\texttt{9 tags in cluster: nginx, azure-web-sites, ubuntu-16.04, drools, cgal, rule-engine, nginx-reverse-proxy, kibana-4, nginx-config}
+\begin{figure}[h]
+	{\includegraphics[width=250pt, height=190pt]{nginx.pdf}}
+\end{figure}
 \end{frame}
 
 
-\begin{frame}\frametitle{Результаты}
-
+\begin{frame}\frametitle{Результаты: n\_topics = 1000}
+\texttt{9 tags in cluster: nginx, azure-web-sites, ubuntu-16.04, drools, cgal, rule-engine, nginx-reverse-proxy, kibana-4, nginx-config}
+\begin{figure}[h]
+	{\includegraphics[width=280pt, height=190pt]{nginx_gathered.pdf}}
+\end{figure}
 \end{frame}
 
 \begin{frame}\frametitle{Заключение}
@@ -141,6 +161,7 @@
 Дальнейшие планы: 
 \begin{itemize}
 	\item рефакторинг существующей кодовой базы;
+	\item слияние тэгов: \texttt{python-2.7, python3} $\rightarrow$ \texttt{python}
 	\item выработка рекомендаций по подбору параметров для поставленной задачи;
 	\item применение динамического тематического моделирования (BigARTM, gensim);
 	\item имплементация дашборда для интерактивной визуализации (R Shiny).

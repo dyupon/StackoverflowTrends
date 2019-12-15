@@ -66,7 +66,7 @@ public class TopicPopularityTracker extends CSVReader {
         columns.add("Propensity");
         Map<String, Integer> notCountedTags = TagsFrequenciesSerializer.deserialize();
         notCountedTags.values().removeIf(value -> value > tagFrequencyThreshold);
-        ModelExtractor modelExtractor = new ModelExtractor("tag2topic_final2.csv"); //todo: set model from above
+        ModelExtractor modelExtractor = new ModelExtractor("tag2topic_final1.csv"); //todo: set model from above
         Map<String, TagClustering> model = modelExtractor.extractModel();
         model.keySet().removeAll(notCountedTags.keySet());
         Map<String, List<String>> rows = new HashMap<>();
@@ -127,11 +127,11 @@ public class TopicPopularityTracker extends CSVReader {
             int numCols = (shift - 1) * 4 + (4 - lowerQuarter + 1) + upperQuarter;
             for (int i = lowerQuarter; i <= lowerQuarter + numCols; ++i) {
                 if (i % 4 == 0) {
-                    columns.add("4." + currentYear);
+                    columns.add("Q4." + currentYear);
                     periods.add(getEndOfPeriod(periodType, 4, currentYear));
                     ++currentYear;
                 } else {
-                    columns.add(i % 4 + "." + currentYear);
+                    columns.add("Q" + i % 4 + "." + currentYear);
                     periods.add(getEndOfPeriod(periodType, i % 4, currentYear));
                 }
             }
@@ -141,12 +141,12 @@ public class TopicPopularityTracker extends CSVReader {
             boolean isSecondHalf = (timeBounds[0].getMonthValue() > 6);
             for (int i = lowerYear; i <= upperYear; ++i) {
                 if (isSecondHalf) {
-                    columns.add("2." + i);
+                    columns.add("H2." + i);
                     periods.add(getEndOfPeriod(periodType, 2, currentYear));
                     ++currentYear;
                 } else {
-                    columns.add("1." + i);
-                    columns.add("2." + i);
+                    columns.add("H1." + i);
+                    columns.add("H2." + i);
                     periods.add(getEndOfPeriod(periodType, 1, currentYear));
                     periods.add(getEndOfPeriod(periodType, 2, currentYear));
                     ++currentYear;
