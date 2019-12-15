@@ -2,9 +2,12 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-read.csv("final1_quarter.csv", header = T) %>% select(-c("Q4.2019", "Q1.2020")) -> quarter1
+read.csv("final1_quarter.csv", header = T) %>% select(-c("Q4.2019", "Q1.2020")) -> df
 
-quarter1[which(quarter1$TopicNumber == 'topic_845'),] -> 
+#read.csv("final1_year.csv", header = T) -> df
+
+
+df[which(df$TopicNumber == 'topic_845'),] -> 
   theme 
 
 colSums(theme %>% select(-c("Tag", "Propensity", "TopicNumber"))) -> 
