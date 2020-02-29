@@ -67,7 +67,7 @@
 <<Выявление сообществ в Stackoverflow>> [Поляков С.Г., 2017]: тематические модели справляются лучше, чем графовые методы кластеризации.
 \end{frame}
 \begin{frame}\frametitle{Краткое введение в тематическое моделирование}
-	Пусть $D \times W \times T$ --- вероятностное пространство <<тэги $\times$ посты $\times$ темы>>. Тогда:
+	Пусть $W \times D \times T$ --- вероятностное пространство <<тэги $\times$ посты $\times$ темы>>. Тогда:
 	\begin{equation*}
 	\text{p} (w | d) = \sum_{t \in T}{\text{p}}(w | \textcolor{red}{\cancel{d}}, t) \text{p}(t | d).
 	\end{equation*}
