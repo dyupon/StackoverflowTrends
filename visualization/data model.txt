@@ -1,0 +1,14 @@
+Tag {
+	tagValue: string
+	propensity: double
+}
+
+Topic {
+	topicName: string
+	tags: List<Tag>
+	parentTopics: List<Topic>
+	childTopics: List<Topic>
+}
+
+all topics form an oriented graph which is defined the following relation of order:
+topic1 is parent to topic2 if there exists someTag presented in topic1.tags and topic2.tags simultaneosly and propesity of someTag in topic1 is greater than propensity of someTag in topic2
