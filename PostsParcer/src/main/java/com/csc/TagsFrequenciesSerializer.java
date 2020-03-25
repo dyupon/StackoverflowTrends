@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TagsFrequenciesSerializer extends PostsReader {
+public class TagsFrequenciesSerializer extends AbstractParcer {
     private static FileOutputStream fileOutputStream = null;
     private static ObjectOutputStream objectOutputStream = null;
     private static String fileName = "tagsFrequencies.ser";

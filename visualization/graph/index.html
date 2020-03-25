@@ -1,0 +1,105 @@
+<html>
+<head>
+    <style>
+        .graph {
+            display: block;
+            height: calc(100% - 22px);
+            box-sizing: border-box;
+            border: 1px black solid;
+        }
+
+        .tooltip {
+            position: absolute;
+            display: block;
+            width: auto;
+            height: auto;
+            max-height: 120px;
+            padding: 5px 10px;
+            box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.75);
+            background-color: white;
+            border: 1px darkgray solid;
+            overflow: auto;
+            visibility: hidden;
+        }
+
+        .tooltip div {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+        }
+
+        .tooltip:hover {
+            visibility: visible;
+        }
+
+        .tooltip-visible {
+            visibility: visible;
+        }
+
+        .context-panel {
+            overflow: hidden;
+            position: fixed;
+            width: 200px;
+            height: 20px;
+
+            background-color: #fff8ef;
+            border: 1px darkgray solid;
+            padding: 5px;
+            transition: .3s height ease-in-out;
+
+            top: 20px;
+            left: 20px;
+        }
+
+        .context-panel._expanded {
+            height: 210px;
+        }
+
+        .context-panel > * {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .node {
+            stroke: darkgray;
+        }
+
+        .label {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div id="graph" class="graph"></div>
+
+<div class="context-panel _expanded">
+    <button id="toggle" onclick="window.onToggle()">Collapse/expand</button>
+
+    <label for="searchTopic">Find topic:</label>
+    <input id="searchTopic" type="search"/>
+
+    <label for="searchTag">Find tag:</label>
+    <input id="searchTag" type="search"/>
+
+    <label for="topicsWithTag">Topics with tag:</label>
+    <select id="topicsWithTag" disabled>
+        <option selected>-</option>
+    </select>
+
+    <input id="file" type="file"/>
+</div>
+</body>
+<script type="application/javascript" src="./dist/index.js"></script>
+<script>
+    const panel = document.body.querySelector('.context-panel')
+    let state = true
+    window.onToggle = () => {
+        if (state) {
+            panel.classList.remove('_expanded')
+        } else {
+            panel.classList.add('_expanded')
+        }
+        state = !state
+    }
+</script>
+</html>

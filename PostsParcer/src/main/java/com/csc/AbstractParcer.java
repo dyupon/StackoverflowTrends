@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-class PostsReader {
+class AbstractParcer {
     private static FileInputStream inputStream = null;
     static CSVPrinter csvPrinter = null;
     static FileWriter fileWriter = null;
@@ -22,7 +22,7 @@ class PostsReader {
     static String commonRegexp = "=\"(.*?)\"";
     static String tagRegexp = "&lt;(.*?)&gt;";
 
-    PostsReader(String path) {
+    AbstractParcer(String path) {
         if (!path.isEmpty()) try {
             inputStream = new FileInputStream(path);
             sc = new Scanner(inputStream);

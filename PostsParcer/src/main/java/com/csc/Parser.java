@@ -1,9 +1,5 @@
 package com.csc;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
-
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
@@ -16,7 +12,7 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 @SuppressWarnings("SameParameterValue")
-class Parser extends PostsReader {
+class Parser extends AbstractParcer {
 
     private int tagFrequencyThreshold;
 

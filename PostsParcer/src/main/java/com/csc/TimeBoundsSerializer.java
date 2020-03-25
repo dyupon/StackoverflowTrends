@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class TimeBoundsSerializer extends PostsReader {
+class TimeBoundsSerializer extends AbstractParcer {
 
     private static String TIME_COLUMN = "CreationDate";
     private static String timeBoundsFile = "cacheTimeBounds.txt";
