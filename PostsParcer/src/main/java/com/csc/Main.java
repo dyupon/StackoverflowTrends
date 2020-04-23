@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class Main {
 
-    private static String entryType = "posts";
-
 
     public static void main(String[] args) {
         //parseRawData();
@@ -19,12 +17,12 @@ public class Main {
         //serializeTags();
         //createTagsFrequenciesCSV();
         //printLinesFromRaw();
-        extractTagsPopularityInformation("half-year");
+        extractTagsPopularityInformation("quarter");
     }
 
     private static void extractTagsPopularityInformation(String period) {
         TopicPopularityTracker tracker = new TopicPopularityTracker("DynamicPostsTagsGathered.csv");
-        tracker.extractInformation("final1_year.csv", period, 100);
+        tracker.extractInformation("quarter.csv", period, 100);
     }
 
     private static void createTagsFrequenciesCSV() {
@@ -72,6 +70,7 @@ public class Main {
             add("OwnerUserId");
             add("Tags");
         }};
+        String entryType = "posts";
         parser.parseToCSV(entryType, cols, "DynamicPostTagsUngatheredFinal.csv");
     }
 

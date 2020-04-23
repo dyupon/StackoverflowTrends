@@ -1,8 +1,8 @@
 package com.csc;
 
 public class TagClustering {
-    private String topic;
-    private double propensity;
+    private final String topic;
+    private final double propensity;
 
     TagClustering(String topic, double propensity) {
         this.topic = topic;

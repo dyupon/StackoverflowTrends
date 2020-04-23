@@ -66,7 +66,7 @@ public class TopicPopularityTracker extends CSVReader {
         columns.add("Propensity");
         Map<String, Integer> notCountedTags = TagsFrequenciesSerializer.deserialize();
         notCountedTags.values().removeIf(value -> value > tagFrequencyThreshold);
-        ModelExtractor modelExtractor = new ModelExtractor("tag2topic_final1.csv"); //todo: set model from above
+        ModelExtractor modelExtractor = new ModelExtractor("tag2topic.csv"); //todo: set model from above
         Map<String, TagClustering> model = modelExtractor.extractModel();
         model.keySet().removeAll(notCountedTags.keySet());
         Map<String, List<String>> rows = new HashMap<>();
