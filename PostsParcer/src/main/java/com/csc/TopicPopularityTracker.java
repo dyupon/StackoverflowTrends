@@ -50,7 +50,7 @@ public class TopicPopularityTracker extends CSVReader {
         serializer = new TimeBoundsSerializer(fileName);
     }
 
-    void extractInformation(String fileName, String period, int tagFrequencyThreshold) {
+    void extractInformation(String fileName, String period) {
         Date[] timeBoundsDate = serializer.deserializeTimeBounds(); //todo: initially serialize to LocalDateTime
         LocalDateTime[] timeBounds = new LocalDateTime[]{
                 timeBoundsDate[0].toInstant()
@@ -64,11 +64,8 @@ public class TopicPopularityTracker extends CSVReader {
         buildHeaders(period, timeBounds);
         columns.add("TopicNumber");
         columns.add("Propensity");
-        Map<String, Integer> notCountedTags = TagsFrequenciesSerializer.deserialize();
-        notCountedTags.values().removeIf(value -> value > tagFrequencyThreshold);
         ModelExtractor modelExtractor = new ModelExtractor("tag2topic.csv"); //todo: set model from above
         Map<String, TagClustering> model = modelExtractor.extractModel();
-        model.keySet().removeAll(notCountedTags.keySet());
         Map<String, List<String>> rows = new HashMap<>();
         for (String tag : model.keySet()) {
             List<String> row = new ArrayList<>(Collections.nCopies(columns.size(), String.valueOf(0)));
@@ -95,10 +92,19 @@ public class TopicPopularityTracker extends CSVReader {
             }
         }
         createCSVFile(fileName, columns);
+        HashMap<String, ArrayList<TagClustering>> repeatedTags = modelExtractor.getRepeatedTags();
         for (Map.Entry<String, List<String>> entry : rows.entrySet()) {
             try {
                 List<String> row = entry.getValue();
                 csvPrinter.printRecord(row);
+                ArrayList<TagClustering> repeatedRows = repeatedTags.get(entry.getKey());
+                if (repeatedRows != null) {
+                    for (TagClustering tagClustering : repeatedRows) {
+                        row.set(columns.size() - 1, String.valueOf(tagClustering.getPropensity()));
+                        row.set(columns.size() - 2, tagClustering.getTopic());
+                        csvPrinter.printRecord(row);
+                    }
+                }
                 csvPrinter.flush();
             } catch (IOException e) {
                 throw new RuntimeException("Error while writing row " + entry.getValue() + ": " + e.getMessage());
