@@ -27,12 +27,13 @@ public class ModelExtractor extends CSVReader {
             double propensity = Double.parseDouble(record.get("propensity"));
             TagClustering tagClustering = new TagClustering(topic, propensity);
             if (tagClustering.isInformative()) {
-                if (model.put(tag, tagClustering) != null) {
+                TagClustering previous = model.put(tag, tagClustering);
+                if (previous != null) {
                     ArrayList<TagClustering> existing = repeatedTags.get(tag);
                     if (existing == null) {
-                        repeatedTags.put(tag, new ArrayList<>(Collections.singletonList(new TagClustering(topic, propensity, tag))));
+                        repeatedTags.put(tag, new ArrayList<>(Collections.singletonList(new TagClustering(previous.getTopic(), previous.getPropensity(), tag))));
                     } else {
-                        existing.add(new TagClustering(topic, propensity, tag));
+                        existing.add(new TagClustering(previous.getTopic(), previous.getPropensity(), tag));
                         repeatedTags.put(tag, existing);
                     }
                 }
