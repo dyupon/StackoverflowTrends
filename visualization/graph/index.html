@@ -62,6 +62,8 @@
 
         .node {
             stroke: darkgray;
+            stroke-width: 2px;
+            cursor: pointer;
         }
 
         .label {
@@ -70,6 +72,13 @@
 
         .link {
             stroke: #aaa;
+            stroke-linecap: round;
+        }
+
+        .link:hover {
+            stroke-width: 8px;
+            stroke: royalblue;
+            z-index: 3;
         }
 
         .link._selected {
@@ -122,6 +131,11 @@
 
         .topic-panel__content {
             height: calc(100% - 50px);
+        }
+
+        .link-node {
+            fill: rgba(255, 0, 0, 0.2);
+            /*r: 30;*/
         }
     </style>
 </head>
