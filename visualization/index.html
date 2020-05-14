@@ -4,10 +4,14 @@
         .graph {
             display: block;
             height: calc(100% - 22px);
-            /*box-sizing: border-box;*/
-            /*border: 1px black solid;*/
         }
 
+        .link-tooltip div * {
+            width: 30%;
+            text-align: center;
+        }
+
+        .link-tooltip,
         .tooltip {
             position: absolute;
             display: block;
@@ -22,17 +26,24 @@
             visibility: hidden;
         }
 
+        .link-tooltip {
+            width: 450px;
+        }
+
+        .link-tooltip div,
         .tooltip div {
             display: flex;
             flex-flow: row;
             justify-content: space-between;
         }
 
+        .link-tooltip:hover,
         .tooltip:hover {
             visibility: visible;
         }
 
-        .tooltip-visible {
+        .link-tooltip._visible,
+        .tooltip._visible {
             visibility: visible;
         }
 
@@ -149,7 +160,9 @@
     <input id="searchTopic" type="search"/>
 
     <label for="searchTag">Find tag:</label>
-    <input id="searchTag" type="search"/>
+    <input id="searchTag" list="search-options" type="search"/>
+    <!--<input id="searchTag" list="search-options" type="search"/>-->
+    <datalist id="search-options"></datalist>
 
     <label for="topicsWithTag">Topics with tag:</label>
     <select id="topicsWithTag" disabled>
