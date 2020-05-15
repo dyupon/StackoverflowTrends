@@ -1,154 +1,6 @@
 <html>
 <head>
-    <style>
-        .graph {
-            display: block;
-            height: calc(100% - 22px);
-        }
-
-        .link-tooltip div * {
-            width: 30%;
-            text-align: center;
-        }
-
-        .link-tooltip,
-        .tooltip {
-            position: absolute;
-            display: block;
-            width: auto;
-            height: auto;
-            max-height: 120px;
-            padding: 5px 10px;
-            box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.75);
-            background-color: white;
-            border: 1px darkgray solid;
-            overflow: auto;
-            visibility: hidden;
-        }
-
-        .link-tooltip {
-            width: 450px;
-        }
-
-        .link-tooltip div,
-        .tooltip div {
-            display: flex;
-            flex-flow: row;
-            justify-content: space-between;
-        }
-
-        .link-tooltip:hover,
-        .tooltip:hover {
-            visibility: visible;
-        }
-
-        .link-tooltip._visible,
-        .tooltip._visible {
-            visibility: visible;
-        }
-
-        .context-panel {
-            overflow: hidden;
-            position: fixed;
-            width: 200px;
-            height: 20px;
-
-            background-color: #fff8ef;
-            border: 1px darkgray solid;
-            padding: 5px;
-            transition: .3s height ease-in-out;
-
-            top: 20px;
-            left: 20px;
-        }
-
-        .context-panel._expanded {
-            height: 210px;
-        }
-
-        .context-panel > * {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .node {
-            stroke: darkgray;
-            stroke-width: 2px;
-            cursor: pointer;
-        }
-
-        .label {
-            pointer-events: none;
-        }
-
-        .link {
-            stroke: #aaa;
-            stroke-linecap: round;
-        }
-
-        .link:hover {
-            stroke-width: 8px;
-            stroke: royalblue;
-            z-index: 3;
-        }
-
-        .link._selected {
-            stroke: royalblue;
-            stroke-width: 4px;
-        }
-
-        .topic-panel {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #8080809c;
-            display: none;
-        }
-
-        .topic-panel._visible {
-            display: block;
-        }
-
-        .topic-panel__main {
-            position: relative;
-            padding: 0 20px;
-            box-sizing: border-box;
-            width: 75%;
-            height: 70%;
-            background: white;
-            top: 12%;
-            left: 15%;
-        }
-
-        .topic-panel__header {
-            height: 40px;
-            padding: 10px 0;
-            display: flex;
-            position: relative;
-            box-sizing: border-box;
-            justify-content: space-between;
-            border-bottom: 1px lightgray solid;
-
-            font-size: 20px;
-            font-family: sans-serif;
-        }
-
-        .topic-panel__close {
-            width: 20px;
-            color: gray;
-            cursor: pointer;
-        }
-
-        .topic-panel__content {
-            height: calc(100% - 50px);
-        }
-
-        .link-node {
-            fill: rgba(255, 0, 0, 0.2);
-            /*r: 30;*/
-        }
-    </style>
+    <link href="styles.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="graph" class="graph"></div>
@@ -161,7 +13,6 @@
 
     <label for="searchTag">Find tag:</label>
     <input id="searchTag" list="search-options" type="search"/>
-    <!--<input id="searchTag" list="search-options" type="search"/>-->
     <datalist id="search-options"></datalist>
 
     <label for="topicsWithTag">Topics with tag:</label>
@@ -180,6 +31,14 @@
         </div>
         <div class="topic-panel__content"></div>
     </div>
+</div>
+
+<div id="loader" class="loader">
+    <svg class="loader-image" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <circle cx="50" cy="50" fill="none" stroke="#07abcc" stroke-width="10" r="35"
+                stroke-dasharray="165 57"></circle>
+    </svg>
+
 </div>
 
 </body>
