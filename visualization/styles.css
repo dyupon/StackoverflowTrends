@@ -32,11 +32,14 @@
         transform: rotate(360deg);
     }
 }
+/* ================= */
 
 .graph {
     display: block;
     height: calc(100% - 22px);
+    shape-rendering: optimizeSpeed;
 }
+/* ================= */
 
 .link-tooltip div * {
     width: 30%;
@@ -78,6 +81,7 @@
 .tooltip._visible {
     visibility: visible;
 }
+/* ================= */
 
 .context-panel {
     overflow: hidden;
@@ -102,15 +106,23 @@
     width: 100%;
     margin-bottom: 10px;
 }
+/* ================= */
 
 .node {
     stroke: darkgray;
     stroke-width: 2px;
     cursor: pointer;
 }
+.node._low-scale {
+    stroke: none;
+    /*fill: black;*/
+}
 
 .label {
     pointer-events: none;
+}
+.label._low-scale {
+    display: none;
 }
 
 .link {
@@ -128,6 +140,14 @@
     stroke: royalblue;
     stroke-width: 4px;
 }
+
+.link._low-scale:hover,
+.link._low-scale {
+    marker-end: none;
+    marker-start: none;
+    mask: none;
+}
+/* ================= */
 
 .topic-panel {
     position: fixed;
@@ -175,8 +195,4 @@
 .topic-panel__content {
     height: calc(100% - 50px);
 }
-
-.link-node {
-    fill: rgba(255, 0, 0, 0.2);
-    /*r: 30;*/
-}
+/* ============================ */
