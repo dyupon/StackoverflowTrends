@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="utf-8">
     <link href="styles.css" rel="stylesheet"/>
 </head>
 <body>
@@ -8,12 +9,15 @@
 <div class="context-panel _expanded">
     <button id="toggle" onclick="window.onToggle()">Collapse/expand</button>
 
+    <label for="linkThreshold">Connectivity threshold:</label>
+    <input id="linkThreshold" type="number" min="0" max="1" step="0.00000001"/>
+
     <label for="searchTopic">Find topic:</label>
     <input id="searchTopic" type="search"/>
 
     <label for="searchTag">Find tag:</label>
-    <input id="searchTag" list="search-options" type="search"/>
-    <datalist id="search-options"></datalist>
+    <input id="searchTag" list="searchOptions" type="search"/>
+    <datalist id="searchOptions"></datalist>
 
     <label for="topicsWithTag">Topics with tag:</label>
     <select id="topicsWithTag" disabled>
@@ -23,13 +27,27 @@
     <input id="file" type="file" accept=".csv"/>
 </div>
 
-<div class="topic-panel">
+<div class="topic-panel" id="topicPanel">
     <div class="topic-panel__main">
         <div class="topic-panel__header">
-            <b class="topic-panel__title"></b>
-            <b class="topic-panel__close">X</b>
+            <b class="topic-panel__title" id="topicTitle"></b>
+            <b class="topic-panel__close" id="closeTopic">X</b>
         </div>
-        <div class="topic-panel__content"></div>
+
+        <div class="topic-panel__content">
+            <div class="topic-panel__data">
+                <div class="topic-panel__filter">
+                    <label for="filterTags">Filter the displayed tags by probability of belonging to cluster:</label>
+                    <input id="filterTags" type="number" min="0" max="1" step="0.00000001"/>
+                </div>
+                <div class="topic-panel__chart" id="chart"></div>
+            </div>
+            <div class="topic-panel__list">
+                <div class="topic-panel__list-title">Tags:</div>
+                <div class="topic-panel__list-content" id="tagList"></div>
+
+            </div>
+        </div>
     </div>
 </div>
 
