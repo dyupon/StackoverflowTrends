@@ -225,6 +225,8 @@ body {
     height: 30px;
     font-weight: bold;
     line-height: 25px;
+    justify-content: space-between;
+    display: flex;
 }
 
 .topic-panel__list-content {
