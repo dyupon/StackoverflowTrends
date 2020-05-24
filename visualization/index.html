@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>StackOverflow Trends Visualization</title>
@@ -10,8 +11,8 @@
 <body>
 <div id="graph" class="graph"></div>
 
-<div class="context-panel _expanded">
-    <button id="toggle" onclick="window.onToggle()">Collapse/expand</button>
+<div id="context-panel" class="context-panel _expanded">
+    <button id="toggle">Collapse/expand</button>
 
     <label for="linkThreshold">Connectivity threshold:</label>
     <input id="linkThreshold" type="number" min="0" max="1" step="0.00000001"/>
@@ -67,10 +68,7 @@
 </div>
 
 </body>
-
+<script type="application/javascript" src="./dist/polyfills.js"></script>
 <script type="application/javascript" src="./dist/index.js"></script>
-<script>
-    const panel = document.body.querySelector('.context-panel')
-    window.onToggle = () => panel.classList.toggle('_expanded')
-</script>
+
 </html>

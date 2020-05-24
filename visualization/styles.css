@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 body {
     overflow: hidden;
 }
@@ -110,6 +114,10 @@ body {
 .context-panel > * {
     width: 100%;
     margin-bottom: 10px;
+}
+
+.context-panel input[type="number"] {
+    width: calc(100% - 4px);
 }
 /* ================= */
 
